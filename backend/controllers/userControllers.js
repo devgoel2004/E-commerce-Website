@@ -109,3 +109,82 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   await user.save();
   sendToken(user, 200, res);
 });
+//get user details
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+//update user password
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select("+password");
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+  if (!isPasswordMatched) {
+    return next(new ErrorHandler("old password does not match", 401));
+  }
+  if (req.body.newPassword !== req.body.confirmPassword) {
+    return next(new ErrorHandler("password does not match", 400));
+  }
+  user.password = req.body.newPassword;
+  await user.save();
+  sendToken(user, 200, res);
+});
+//update User profile
+exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+  const user = User.findByIdAndUpdate(req.user.id, newUserData);
+  res.status(200).json({
+    success: true,
+    user,
+    message: "Profile updated",
+  });
+});
+//get all users
+exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+//Get single users (admin)
+exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    return next(new ErrorHandler("No user found", 400));
+  }
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+//Delete user -- Admin
+exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    return next(
+      new ErrorHandler(`User doest not exists with Id: ${req.params.id}`, 400)
+    );
+  }
+  await user.deleteOne();
+  res.status(200).json({
+    success: true,
+  });
+});
+//Update user role -- Admin
+exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
+  const newUserRole = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+  await User.findByIdAndUpdate(req.params.id, newUserRole);
+  res.status(200).json({
+    success: true,
+  });
+});
