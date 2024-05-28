@@ -5,6 +5,11 @@
   justify-content: space-between;
   color: gray;
   margin-top: 7px;
+  align-items: center;
+  height: 48px;
+}
+#bar-icon {
+  display: none;
 }
 .Header-section-1 > div > b {
   font-size: 1.5rem;
@@ -13,19 +18,18 @@
 }
 .Header-section-1 > .heading {
   padding-left: 12px;
-  padding-top: 12px;
+}
+.Header-section-1 > .searchbox {
+  width: 20rem;
 }
 .Header-section-1 > .searchbox > input {
   border: 1px solid (0, 0, 0, 0.5);
-  margin-top: 15px;
+  width: 80%;
 }
 .Header-section-1 > div > img {
   width: 1.5em;
   height: 1.5em;
   padding-right: 5px;
-}
-.Header-section-1 > .icons {
-  padding-top: 15px;
 }
 .Header-section-1 > .icons > a {
   padding-left: 5px;
@@ -40,7 +44,7 @@ ul {
   display: flex;
 }
 ul > li {
-  font-size: small;
+  font-size: 0.5rem;
   padding-left: 5px;
   padding-right: 2px;
 }
@@ -70,17 +74,29 @@ ul > li {
 }
 @media (max-width: 768px) {
   .Header-section-1 {
-    flex-direction: column;
-    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .Header-section-1 > .searchbox {
+    width: 15rem;
+  }
+  .Header-section-1 > .heading {
+    display: flex;
+    align-items: center;
+  }
+  #bar-icon {
+    display: block;
+    padding-right: 5px;
   }
 
   .Header-section-1 > .searchbox {
-    width: 100%;
-    margin-top: 10px;
     display: flex;
     justify-content: center;
   }
-
+  .Header-section-1 > .list {
+    display: none;
+  }
   .Header-section-1 > .searchbox > input {
     width: 80%;
   }
@@ -90,22 +106,24 @@ ul > li {
     align-items: flex-start;
     padding-left: 12px;
   }
-
-  .Header-section-2 {
-    flex-direction: column;
-    height: auto;
-    padding: 10px 0;
+  .Header-section-3 {
+    display: none;
   }
-
-  .Header-section-2 > .Categories {
+  .Header-section-2 {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding-left: 10px;
+    justify-content: center;
+    height: auto;
+    padding: 5px;
+  }
+  .Header-section-2 > .Categories {
+    display: flex;
+    height: auto;
+    flex-direction: column;
     border: none;
   }
-
-  .Header-section-2 > .Categories > span {
-    margin: 10px 0;
+  #hide {
+    display: none;
   }
 }
 
@@ -117,11 +135,12 @@ ul > li {
   .Header-section-1 > .heading > b {
     font-size: 1.2rem;
   }
-
-  .Header-section-1 > .searchbox > input {
-    width: 100%;
+  .Header-section-1 > .icons {
+    display: flex;
   }
-
+  .Header-section-1 > .searchbox > input {
+    display: none;
+  }
   .Header-section-2 > .Categories > span {
     margin: 5px 0;
   }
