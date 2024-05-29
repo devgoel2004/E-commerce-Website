@@ -38,7 +38,7 @@ const Header = () => {
         <div className="searchbox">
           <input type="text" placeholder="Search" />
           <button>
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i className="fa-solid fa-magnifying-glass"></i>
           </button>
         </div>
         <div className="list">
@@ -51,13 +51,13 @@ const Header = () => {
         </div>
         <div className="icons">
           <a href="https://www.instagram.com/__dev__goel__/">
-            <i class="fa-brands fa-instagram"></i>
+            <i className="fa-brands fa-instagram"></i>
           </a>
           <a href="https://www.instagram.com/__dev__goel__/">
-            <i class="fa-brands fa-facebook"></i>
+            <i className="fa-brands fa-facebook"></i>
           </a>
           <a href="https://x.com/devgoel12072004">
-            <i class="fa-brands fa-twitter"></i>
+            <i className="fa-brands fa-twitter"></i>
           </a>
         </div>
       </div>
@@ -68,23 +68,23 @@ const Header = () => {
             Categories
           </span>
           <span id="hide">
-            <i class="fa-solid fa-arrow-down"></i>
+            <i className="fa-solid fa-arrow-down"></i>
             Rs
           </span>
           <span id="hide">
-            <i class="fa-solid fa-arrow-down"></i>
+            <i className="fa-solid fa-arrow-down"></i>
             English
           </span>
         </div>
         <div className="Categories">
           <span>
-            <i class="fa-solid fa-user"></i>Sign In
+            <i className="fa-solid fa-user"></i>Sign In
           </span>
           <span>
-            <i class="fa-solid fa-bag-shopping"></i>Favourite
+            <i className="fa-solid fa-bag-shopping"></i>Favourite
           </span>
           <span>
-            <i class="fa-solid fa-bag-shopping"></i>Card
+            <i className="fa-solid fa-bag-shopping"></i>Card
           </span>
         </div>
       </div>
