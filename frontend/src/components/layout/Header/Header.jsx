@@ -1,6 +1,7 @@
 import React from "react";
 import "./Header.css";
 import { useState, useEffect } from "react";
+import image from "../../../images/ecommerce.png";
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const toggleActiveClass = () => {
@@ -31,7 +32,7 @@ const Header = () => {
             onClick={toggleActiveClass}
             className="fa-solid fa-bars"
             id="bar-icon"></i>
-          <img src="./images/ecommerce.png" alt="" />
+          <img src={image} alt="" />
           <b>Shop</b>
           <span>Fusion</span>
         </div>
