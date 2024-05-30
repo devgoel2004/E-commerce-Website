@@ -72,6 +72,17 @@ ul > li {
   font-size: small;
   margin: 5px;
 }
+.Header-section-2 > .Categories > span > a {
+  color: white;
+  text-decoration: none;
+}
+.searchbox > form {
+  display: flex;
+  justify-content: center;
+}
+.searchbox > form > button {
+  margin-left: 4px;
+}
 @media (max-width: 768px) {
   .Header-section-1 {
     display: flex;
@@ -130,18 +141,28 @@ ul > li {
 @media (max-width: 480px) {
   .Header-section-1 {
     padding: 10px;
+    display: flex;
+    justify-content: space-around;
   }
 
   .Header-section-1 > .heading > b {
     font-size: 1.2rem;
   }
   .Header-section-1 > .icons {
-    display: flex;
+    display: none;
   }
   .Header-section-1 > .searchbox > input {
     display: none;
   }
   .Header-section-2 > .Categories > span {
     margin: 5px 0;
+  }
+  .searchbox > form {
+    display: flex;
+    justify-content: space-around;
+  }
+  .searchbox > form > input {
+    width: 85%;
+    padding: 2px;
   }
 }

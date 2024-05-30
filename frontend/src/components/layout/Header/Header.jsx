@@ -2,7 +2,18 @@ import React from "react";
 import "./Header.css";
 import { useState, useEffect } from "react";
 import image from "../../../images/ecommerce.png";
+import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState("");
+  const searchSubmitHandler = (e) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      navigate(`/products/${keyword}`);
+    } else {
+      navigate(`/products`);
+    }
+  };
   const [isActive, setIsActive] = useState(false);
   const toggleActiveClass = () => {
     console.log("toggleActiveClass");
@@ -37,10 +48,16 @@ const Header = () => {
           <span>Fusion</span>
         </div>
         <div className="searchbox">
-          <input type="text" placeholder="Search" />
-          <button>
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </button>
+          <form action="searchForm" onSubmit={searchSubmitHandler}>
+            <input
+              type="text"
+              placeholder="Search..."
+              onChange={(e) => setKeyword(e.target.value)}
+            />
+            <button type="submit">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
         </div>
         <div className="list">
           <ul>
@@ -65,8 +82,10 @@ const Header = () => {
       <div className={isActive ? `Header-section-2` : `Header-section-3`}>
         <div className="Categories">
           <span style={{ fontSize: "large" }}>
-            <i class="fa-solid fa-list" style={{ padding: "4px" }}></i>
-            Categories
+            <Link to="/products">
+              <i class="fa-solid fa-list" style={{ padding: "4px" }}></i>
+              Products
+            </Link>
           </span>
           <span id="hide">
             <i className="fa-solid fa-arrow-down"></i>
