@@ -64,6 +64,8 @@
 }
 .categoryBox {
   padding: 0%;
+  display: flex;
+  flex-direction: column;
 }
 .category-link {
   list-style: none;
