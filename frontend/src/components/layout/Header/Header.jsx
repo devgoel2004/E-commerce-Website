@@ -14,6 +14,7 @@ const Header = () => {
       navigate(`/products`);
     }
   };
+
   const [isActive, setIsActive] = useState(false);
   const toggleActiveClass = () => {
     console.log("toggleActiveClass");
@@ -43,7 +44,8 @@ const Header = () => {
             onClick={toggleActiveClass}
             className="fa-solid fa-bars"
             id="bar-icon"></i>
-          <img src={image} alt="" />
+
+          <img src={image} alt="Shop" />
           <b>Shop</b>
           <span>Fusion</span>
         </div>
@@ -98,13 +100,15 @@ const Header = () => {
         </div>
         <div className="Categories">
           <span>
-            <i className="fa-solid fa-user"></i>Sign In
+            <Link to="/login">
+              <i className="fa-solid fa-user"></i>Sign In
+            </Link>
           </span>
           <span>
             <i className="fa-solid fa-bag-shopping"></i>Favourite
           </span>
           <span>
-            <i className="fa-solid fa-bag-shopping"></i>Card
+            <i className="fa-solid fa-bag-shopping"></i>Cart
           </span>
         </div>
       </div>
