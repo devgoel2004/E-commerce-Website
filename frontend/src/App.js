@@ -7,6 +7,7 @@ import ProductDetails from "./components/Product/ProductDetails";
 import Product from "./components/Product/Product";
 import Search from "./components/Product/Search";
 import Error from "./components/Error/Error";
+import Login from "./components/Login/Login";
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/products" element={<Product />} />
           <Route path="/search" element={<Search />} />
           <Route path="/products/:keyword" element={<Product />} />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<Error />} />
         </Routes>
         <Footer />

@@ -1,5 +1,6 @@
 const app = require("./app");
 const dotenv = require("dotenv");
+const cloudinary = require("cloudinary");
 const mongoo = require("./config/db");
 process.on("uncaughtException", (err) => {
   console.log(`Error : ${err.message}`);
@@ -8,6 +9,11 @@ process.on("uncaughtException", (err) => {
 });
 dotenv.config();
 mongoo();
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 const port = process.env.PORT;
 
 const server = app.listen(port, () => {
