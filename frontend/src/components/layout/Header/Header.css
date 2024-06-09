@@ -14,6 +14,17 @@ a {
 #bar-icon {
   display: none;
 }
+.speedDial {
+  position: fixed;
+  right: 1vmax;
+  top: 5vmax;
+}
+.speedDialIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+}
+
 .Header-section-1 > div > b {
   font-size: 1.5rem;
   color: black;

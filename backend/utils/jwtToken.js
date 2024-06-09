@@ -1,3 +1,5 @@
+const { LocalStorage } = require("node-localstorage");
+const localStorage = new LocalStorage("./scratch");
 const sendToken = (user, statusCode, res) => {
   const token = user.getJWTToken();
   const options = {

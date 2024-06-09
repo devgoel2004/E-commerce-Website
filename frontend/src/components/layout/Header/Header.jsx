@@ -3,7 +3,7 @@ import "./Header.css";
 import { useState, useEffect } from "react";
 import image from "../../../images/ecommerce.png";
 import { Link, useNavigate } from "react-router-dom";
-const Header = () => {
+const Header = ({ isAuthenticated }) => {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
   const searchSubmitHandler = (e) => {
@@ -100,15 +100,16 @@ const Header = () => {
         </div>
         <div className="Categories">
           <span>
-            <Link to="/login">
-              <i className="fa-solid fa-user"></i>Sign In
+            <Link to={isAuthenticated ? "/account" : "/login"}>
+              <i className="fa-solid fa-user"></i>
+              {isAuthenticated ? " Account" : " Sign In"}
             </Link>
           </span>
           <span>
-            <i className="fa-solid fa-bag-shopping"></i>Favourite
+            <i className="fa-solid fa-bag-shopping"></i> Favourite
           </span>
           <span>
-            <i className="fa-solid fa-bag-shopping"></i>Cart
+            <i className="fa-solid fa-bag-shopping"></i> Cart
           </span>
         </div>
       </div>
