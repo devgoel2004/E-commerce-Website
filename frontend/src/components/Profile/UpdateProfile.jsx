@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./UpdateProfile.css";
 import Loader from "../Loader/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import FaceIcon from "@material-ui/icons/Face";
-import { UPDATE_PROFILE_RESET } from "../constants/userConstants";
+import { UPDATE_PROFILE_RESET } from "../../constants/userConstants";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, updateProfile, loadUser } from "../../actions/userAction";
 import { useAlert } from "react-alert";
@@ -31,7 +31,7 @@ const UpdateProfile = () => {
     reader.onload = () => {
       if (reader.readyState === 2) {
         setAvatarPreview(reader.result);
-        setAvatar(review.result);
+        setAvatar(reader.result);
       }
     };
     reader.readAsDataURL(e.target.files[0]);
@@ -57,12 +57,12 @@ const UpdateProfile = () => {
   }, [dispatch, error, alert, user, isUpdated]);
   return (
     <>
-      <div className="UpdateProfileContainer">
-        <div className="UpdateProfileBox">
+      <div className="updateProfileContainer">
+        <div className="updateProfileBox">
           <h2>Update Profile</h2>
           <form
             action=""
-            className="UpdateProfileForm"
+            className="updateProfileForm"
             encType="multipart/form-data"
             onSubmit={updateSubmit}>
             <div className="updateProfileName">

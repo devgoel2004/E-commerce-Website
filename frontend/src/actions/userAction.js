@@ -44,7 +44,7 @@ export const login = (email, password) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: LOGIN_FAIL,
-      payload: error.response.data.message,
+      payload: error.response,
     });
   }
 };
@@ -70,7 +70,7 @@ export const register = (userData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REGISTER_FAIL,
-      payload: error.response.data.message,
+      payload: error.response,
     });
   }
 };
@@ -80,7 +80,6 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: LOAD_USER_REQUEST,
     });
-    console.log("Load user access");
     const { data } = await axios.get("http://localhost:4000/api/v1/me", {
       withCredentials: true,
     });
@@ -93,7 +92,7 @@ export const loadUser = () => async (dispatch) => {
     console.log(error);
     dispatch({
       type: LOAD_USER_FAIL,
-      payload: error.response.data.message,
+      payload: error.response,
     });
   }
 };
@@ -123,11 +122,12 @@ export const updateProfile = (userData) => async (dispatch) => {
       },
       withCredentials: true,
     };
-    const { data } = await axios.get(
+    const { data } = await axios.put(
       `http://localhost:4000/api/v1/me/update`,
       userData,
       config
     );
+    console.log(data);
     dispatch({
       type: UPDATE_PROFILE_SUCCESS,
       payload: data.user,

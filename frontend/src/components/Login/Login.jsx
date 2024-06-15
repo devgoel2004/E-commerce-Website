@@ -68,9 +68,12 @@ const Login = () => {
     e.preventDefault();
     const myForm = new FormData();
     myForm.set("name", name);
+    console.log(name);
     myForm.set("email", email);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
+    const x = myForm.get("email");
+    console.log(x);
     console.log(myForm);
     dispatch(register(myForm));
     alert.success("Register Successfully");
