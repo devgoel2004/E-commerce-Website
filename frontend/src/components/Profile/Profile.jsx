@@ -7,7 +7,7 @@ import "./Profile.css";
 const Profile = () => {
   const navigate = useNavigate();
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
-  
+
   useEffect(() => {
     if (isAuthenticated === false) {
       navigate("/login");
@@ -27,7 +27,7 @@ const Profile = () => {
                 src={user.avatar ? user.avatar.url : "./Profile.png"}
                 alt={user.name}
               />
-              <Link to="/me/profile">Edit Profile</Link>
+              <Link to="/me/update">Edit Profile</Link>
             </div>
             <div>
               <div>

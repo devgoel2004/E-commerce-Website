@@ -17,8 +17,6 @@ const Header = ({ isAuthenticated }) => {
 
   const [isActive, setIsActive] = useState(false);
   const toggleActiveClass = () => {
-    console.log("toggleActiveClass");
-    console.log(isActive);
     setIsActive(!isActive);
   };
   const removeActive = () => {
