@@ -33,7 +33,6 @@ const Login = () => {
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
-    alert.success("Login Done");
   };
   const switchTabs = (e, tab) => {
     if (tab === "login") {
@@ -52,7 +51,6 @@ const Login = () => {
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
       const reader = new FileReader();
-      console.log(reader);
       reader.onload = () => {
         if (reader.readyState === 2) {
           setAvatarPreview(reader.result);
@@ -68,25 +66,21 @@ const Login = () => {
     e.preventDefault();
     const myForm = new FormData();
     myForm.set("name", name);
-    console.log(name);
     myForm.set("email", email);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
-    const x = myForm.get("email");
-    console.log(x);
-    console.log(myForm);
     dispatch(register(myForm));
-    alert.success("Register Successfully");
   };
   useEffect(() => {
     if (error) {
-      console.log(error);
+      alert.error(error);
       dispatch(clearErrors());
     }
     if (isAuthenticated) {
+      alert.success("Login Done!");
       navigate("/account");
     }
-  }, [dispatch, error, alert]);
+  }, [dispatch, error, alert, isAuthenticated]);
   return (
     <>
       <>

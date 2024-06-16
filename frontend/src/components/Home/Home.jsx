@@ -3,7 +3,7 @@ import "./Home.css";
 import { FaMouse } from "react-icons/fa";
 import ProductCard from "./ProductCard";
 import MetaData from "../layout/Header/MetaData";
-import { getProduct } from "../../actions/productActions";
+import { getProduct, clearErrors } from "../../actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../Loader/Loader";
 import { useAlert } from "react-alert";
@@ -15,10 +15,11 @@ const Home = () => {
   );
   useEffect(() => {
     if (error) {
-      return alert.error(error);
+      alert.error(error);
+      dispatch(clearErrors());
     }
     dispatch(getProduct());
-  }, [dispatch, error]);
+  }, [dispatch, error, alert]);
   return (
     <>
       <MetaData title="SHOPFUSION" />

@@ -24,7 +24,6 @@ const UpdatePassword = () => {
     myForm.set("oldPassword", oldPassword);
     myForm.set("newPassword", newPassword);
     myForm.set("confirmPassword", confirmPassword);
-    console.log(myForm.get("oldPassword"));
     dispatch(updatePassword(myForm));
   };
   useEffect(() => {

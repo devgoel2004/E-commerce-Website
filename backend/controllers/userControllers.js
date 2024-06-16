@@ -72,7 +72,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   try {
     await sendEmail({
       email: user.email,
-      subject: `E commerce Password Reccovery`,
+      subject: `E commerce Password Recovery`,
       message,
     });
     res.status(200).json({

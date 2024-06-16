@@ -23,10 +23,8 @@ const UpdateProfile = () => {
     e.preventDefault();
     const myForm = new FormData();
     myForm.set("name", name);
-    console.log(name);
     myForm.set("email", email);
     myForm.set("avatar", avatar);
-    console.log(myForm.get("name"));
     dispatch(updateProfile(myForm));
   };
   const updateProfileDataChange = (e) => {

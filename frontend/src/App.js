@@ -16,6 +16,8 @@ import { useSelector } from "react-redux";
 import Profile from "./components/Profile/Profile";
 import UpdateProfile from "./components/Profile/UpdateProfile";
 import UpdatePassword from "./components/Profile/UpdatePassword";
+import ForgotPassword from "./components/Profile/ForgotPassword";
+import ResetPassword from "./components/Profile/ResetPassword";
 function App() {
   const { isAuthenticated, user, loading, error } = useSelector(
     (state) => state.user
@@ -31,6 +33,7 @@ function App() {
         <Routes>
           <Route path="/me/update" element={<UpdateProfile />} />
           <Route path="/password/update" element={<UpdatePassword />} />
+          <Route path="/password/forgot" element={<ForgotPassword />} />
           <Route path="/" element={<Home></Home>} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/products" element={<Product />} />
@@ -38,6 +41,7 @@ function App() {
           <Route path="/products/:keyword" element={<Product />} />
           <Route path="/login" element={<Login />} />
           <Route path="/account" element={<Profile />} />
+          <Route path="/password/reset/:token" element={<ResetPassword />} />
           <Route path="*" element={<Error />} />
         </Routes>
         <Footer />

@@ -5,12 +5,17 @@ import {
   productReducer,
   productDetailsReducer,
 } from "./reducers/productReducer";
-import { userReducer, updateReducer } from "./reducers/userReducer";
+import {
+  userReducer,
+  updateReducer,
+  forgotPasswordReducer,
+} from "./reducers/userReducer";
 const reducer = combineReducers({
   products: productReducer,
   productDetails: productDetailsReducer,
   user: userReducer,
   profile: updateReducer,
+  forgotPassword: forgotPasswordReducer,
 });
 let initialState = {
   cart: {

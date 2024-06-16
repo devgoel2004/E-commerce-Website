@@ -12,13 +12,11 @@ const ProductDetails = () => {
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
-
   const options = {
     value: product.ratings,
     readOnly: true,
     precision: 0.5,
   };
-  console.log(loading);
   const reviewSubmitHandler = () => {};
   const submitReviewToggle = () => {};
   const [quantity, setQuantity] = useState(0);
