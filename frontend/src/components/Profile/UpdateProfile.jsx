@@ -8,6 +8,7 @@ import { UPDATE_PROFILE_RESET } from "../../constants/userConstants";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, updateProfile, loadUser } from "../../actions/userAction";
 import { useAlert } from "react-alert";
+import MetaData from "./../layout/Header/MetaData";
 const UpdateProfile = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -22,11 +23,13 @@ const UpdateProfile = () => {
     e.preventDefault();
     const myForm = new FormData();
     myForm.set("name", name);
+    console.log(name);
     myForm.set("email", email);
     myForm.set("avatar", avatar);
+    console.log(myForm.get("name"));
     dispatch(updateProfile(myForm));
   };
-  const dataChange = (e) => {
+  const updateProfileDataChange = (e) => {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
@@ -40,7 +43,7 @@ const UpdateProfile = () => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
-      setAvatarPreview(user.avatar);
+      setAvatarPreview(user.avatar.url);
     }
     if (error) {
       alert.error(error);
@@ -57,48 +60,64 @@ const UpdateProfile = () => {
   }, [dispatch, error, alert, user, isUpdated]);
   return (
     <>
-      <div className="updateProfileContainer">
-        <div className="updateProfileBox">
-          <h2>Update Profile</h2>
-          <form
-            action=""
-            className="updateProfileForm"
-            encType="multipart/form-data"
-            onSubmit={updateSubmit}>
-            <div className="updateProfileName">
-              <FaceIcon />
-              <input
-                type="text"
-                placeholder="Name"
-                required
-                name="name"
-                value={name}
-                onChange={dataChange}
-              />
+      {loading ? (
+        <>
+          <Loader />
+        </>
+      ) : (
+        <>
+          <>
+            <MetaData title="Update Profile" />
+            <div className="updateProfileContainer">
+              <div className="updateProfileBox">
+                <h2 className="updateProfileHeading">Update Profile</h2>
+                <form
+                  action=""
+                  className="updateProfileForm"
+                  encType="multipart/form-data"
+                  onSubmit={updateSubmit}>
+                  <div className="updateProfileName">
+                    <FaceIcon />
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      required
+                      name="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
+                  <div className="updateProfileEmail">
+                    <MailOutlineIcon />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      required
+                      name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div id="registerImage">
+                    <img src={avatarPreview} alt="Avatar Preview" />
+                    <input
+                      type="file"
+                      name="avatar"
+                      accept="image/*"
+                      onChange={updateProfileDataChange}
+                    />
+                  </div>
+                  <input
+                    type="submit"
+                    value="Update"
+                    className="updateProfileBtn"
+                  />
+                </form>
+              </div>
             </div>
-            <div className="updateProfileEmail">
-              <MailOutlineIcon />
-              <input
-                type="email"
-                placeholder="Email"
-                required
-                name="email"
-                value={email}
-                onChange={dataChange}
-              />
-            </div>
-            <div id="registerImage">
-              <img src={avatarPreview} alt="Avatar Preview" />
-              <input
-                type="file"
-                name="avatar"
-                accept="image/*"
-                onChange={dataChange}
-              />
-            </div>
-          </form>
-        </div>
-      </div>
+          </>
+        </>
+      )}
     </>
   );
 };
