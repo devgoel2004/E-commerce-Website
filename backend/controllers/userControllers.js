@@ -60,6 +60,7 @@ exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
 //Forgot password
 exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
+  
   if (!user) {
     return next(new ErrorHandler("User not found", 404));
   }
@@ -124,7 +125,6 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
 //update user password
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.user.id).select("+password");
-  console.log(user);
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
   if (!isPasswordMatched) {
     return next(new ErrorHandler("old password does not match", 401));
