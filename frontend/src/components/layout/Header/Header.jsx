@@ -107,7 +107,9 @@ const Header = ({ isAuthenticated }) => {
             <i className="fa-solid fa-bag-shopping"></i> Favourite
           </span>
           <span>
-            <i className="fa-solid fa-bag-shopping"></i> Cart
+            <Link to="/cart">
+              <i className="fa-solid fa-bag-shopping"></i> Cart
+            </Link>
           </span>
         </div>
       </div>

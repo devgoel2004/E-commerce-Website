@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./ProductDetails.css";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductDetails } from "../../actions/productActions";
+import { clearErrors, getProductDetails } from "../../actions/productActions";
 import { useParams } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 import ReviewCard from "./ReviewCard";
 import image from "../../images/ecommerce.png";
+import { addItemToCart } from "../../actions/cartAction";
+import { useAlert } from "react-alert";
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const alert = useAlert();
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
+
   const options = {
     value: product.ratings,
     readOnly: true,
@@ -19,7 +23,7 @@ const ProductDetails = () => {
   };
   const reviewSubmitHandler = () => {};
   const submitReviewToggle = () => {};
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const increaseQuantity = () => {
     if (product.Stock <= quantity) return;
     const qty = quantity + 1;
@@ -30,7 +34,15 @@ const ProductDetails = () => {
     const qty = quantity - 1;
     setQuantity(qty);
   };
+  const addToCartHandler = () => {
+    dispatch(addItemToCart(id, quantity));
+    alert.success("Item Added To Cart");
+  };
   useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
     dispatch(getProductDetails(id));
   }, [dispatch, id]);
   return (
@@ -64,7 +76,9 @@ const ProductDetails = () => {
                 <input readOnly type="number" value={quantity} />
                 <button onClick={increaseQuantity}>+</button>
               </div>
-              <button disabled={product.Stock < 1 ? true : false}>
+              <button
+                disabled={product.Stock < 1 ? true : false}
+                onClick={addToCartHandler}>
                 Add to Cart
               </button>
             </div>

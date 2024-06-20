@@ -7,22 +7,16 @@ import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { logout } from "../../../actions/userAction";
 const UserOptions = ({ user }) => {
+  const { cartItems } = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const alert = useAlert();
   const [open, setOpen] = useState(true);
-
-  if (user.role === "admin") {
-    options.unshift({
-      icon: <DashboardIcon />,
-      name: "Dashboard",
-      func: dashboard,
-    });
-  }
   const dashboard = () => {
     navigate("/dashboard");
   };
@@ -32,15 +26,31 @@ const UserOptions = ({ user }) => {
   const account = () => {
     navigate("/account");
   };
+  const cart = () => {
+    navigate("/cart");
+  };
   const logoutUser = () => {
     dispatch(logout());
     alert.success("Logout successfully");
   };
   const options = [
     { icon: <ListAltIcon></ListAltIcon>, name: "Orders", func: orders },
+    {
+      icon: <ShoppingCartIcon />,
+      name: `Cart(${cartItems.length})`,
+      func: cart,
+    },
     { icon: <PersonIcon />, name: "Profile", func: account },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
+
+  if (user.role === "admin") {
+    options.unshift({
+      icon: <DashboardIcon />,
+      name: "Dashboard",
+      func: dashboard,
+    });
+  }
 
   return (
     <>
@@ -65,6 +75,7 @@ const UserOptions = ({ user }) => {
             tooltipTitle={item.name}
             onClick={item.func}
             key={item.name}
+            tooltipOpen={window.innerWidth <= 600 ? true : false}
           />
         ))}
       </SpeedDial>
