@@ -15,7 +15,7 @@ const Cart = () => {
     dispatch(addItemToCart(id, newQty));
   };
   const descreseQuantity = (id, quantity) => {
-    const newQty = quantity + 1;
+    const newQty = quantity - 1;
     if (1 >= quantity) {
       return;
     }
@@ -45,21 +45,16 @@ const Cart = () => {
             {cartItems &&
               cartItems.map((item) => (
                 <>
-                  {console.log(item.quantity)}
                   <div className="cartContainer" key={item.product}>
                     <CartItemCard item={item} deleteCartItem={deleteCartItem} />
                     <div className="cartInput">
                       <button
                         onClick={() =>
-                          descreseQuantity(
-                            item.product,
-                            item.quantity,
-                            item.stock
-                          )
+                          descreseQuantity(item.product, item.quantity)
                         }>
                         -
                       </button>
-                      <input type="number" value={item.stock} readOnly />
+                      <input type="number" value={item.quantity} readOnly />
                       <button
                         onClick={() =>
                           increaseQuantity(
@@ -71,13 +66,18 @@ const Cart = () => {
                         +
                       </button>
                     </div>
-                    <p className="cartSubtotal">${item.price * item.stock}</p>
+                    <p className="cartSubtotal">
+                      ${item.price * item.quantity}
+                    </p>
                   </div>
                   <div className="cartGrossProfit">
                     <div></div>
                     <div className="cartGrossProfitBox">
                       <p>Gross Total</p>
-                      <p>{`$600`}</p>
+                      <p>{`$${cartItems.reduce(
+                        (acc, item) => acc + item.quantity * item.price,
+                        0
+                      )}`}</p>
                     </div>
                     <div></div>
                     <div className="checkOutBtn">

@@ -36,7 +36,11 @@ const UserOptions = ({ user }) => {
   const options = [
     { icon: <ListAltIcon></ListAltIcon>, name: "Orders", func: orders },
     {
-      icon: <ShoppingCartIcon />,
+      icon: (
+        <ShoppingCartIcon
+          style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+        />
+      ),
       name: `Cart(${cartItems.length})`,
       func: cart,
     },
