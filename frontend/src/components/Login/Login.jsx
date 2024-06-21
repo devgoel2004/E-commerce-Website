@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
+import { red } from "@material-ui/core/colors";
 const Login = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -71,6 +72,9 @@ const Login = () => {
     myForm.set("avatar", avatar);
     dispatch(register(myForm));
   };
+  const redirect = window.location.search
+    ? window.location.search.split("=")[1]
+    : "/account";
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -78,9 +82,10 @@ const Login = () => {
     }
     if (isAuthenticated) {
       alert.success("Login Done!");
-      navigate("/account");
+
+      navigate(`/${redirect}`);
     }
-  }, [dispatch, error, alert, isAuthenticated]);
+  }, [dispatch, error, alert, isAuthenticated, redirect]);
   return (
     <>
       <>

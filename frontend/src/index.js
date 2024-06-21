@@ -7,14 +7,14 @@ import store from "./store";
 import { positions, transitions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 const options = {
-  timeOut: 5000,
+  timeout: 2000,
   position: positions.BOTTOM_CENTER,
   transition: transitions.SCALE,
 };
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <AlertProvider template={AlertTemplate}>
+    <AlertProvider template={AlertTemplate} {...options}>
       <React.StrictMode>
         <App />
       </React.StrictMode>
