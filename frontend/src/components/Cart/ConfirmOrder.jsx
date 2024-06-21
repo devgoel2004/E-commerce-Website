@@ -5,10 +5,11 @@ import CheckOutSteps from "./CheckOutSteps";
 import MetaData from "../layout/Header/MetaData";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 const ConfirmOrder = () => {
+  const navigate = useNavigate();
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-  console.log(user);
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
     0
@@ -17,6 +18,16 @@ const ConfirmOrder = () => {
   const tax = subtotal * 0.18;
   const totalPrice = subtotal + tax + shippingCharges;
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
+  const processToPayment = () => {
+    const data = {
+      subtotal,
+      shippingCharges,
+      tax,
+      totalPrice,
+    };
+    sessionStorage.setItem("orderInfo", JSON.stringify(data));
+    navigate("/process/payment");
+  };
   return (
     <>
       <MetaData title="Confirm Order" />
@@ -79,7 +90,7 @@ const ConfirmOrder = () => {
                 </p>
                 <span>${totalPrice}</span>
               </div>
-              <button>Proceed To Payment</button>
+              <button onClick={processToPayment}>Proceed To Payment</button>
             </div>
           </div>
         </div>
