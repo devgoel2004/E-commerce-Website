@@ -39,7 +39,7 @@ const ConfirmOrder = () => {
             <div className="confirmshippingAreaBox">
               <div>
                 <p>Name:</p>
-                <span>{user.name}</span>
+                <span>{user && user.name}</span>
               </div>
               <div>
                 <p>Phone:</p>
@@ -60,8 +60,8 @@ const ConfirmOrder = () => {
                     <img src={item.image} alt="Product" />
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                     <span>
-                      {item.quantity} * ${item.price} ={" "}
-                      <b>${item.price * item.quantity}</b>
+                      {item.quantity} * ₹{item.price} ={" "}
+                      <b>₹{item.price * item.quantity}</b>
                     </span>
                   </div>
                 ))}
@@ -74,21 +74,21 @@ const ConfirmOrder = () => {
             <div>
               <div>
                 <p>Subtotal:</p>
-                <span>${subtotal}</span>
+                <span> ₹{subtotal}</span>
               </div>
               <div>
                 <p>Shipping Charges:</p>
-                <span>${shippingCharges}</span>
+                <span> ₹{shippingCharges}</span>
               </div>
               <div>
                 <p>GST:</p>
-                <span>${tax}</span>
+                <span> ₹{tax}</span>
               </div>
               <div className="orderSummaryTotal">
                 <p>
                   <b>Total:</b>
                 </p>
-                <span>${totalPrice}</span>
+                <span> ₹{totalPrice}</span>
               </div>
               <button onClick={processToPayment}>Proceed To Payment</button>
             </div>

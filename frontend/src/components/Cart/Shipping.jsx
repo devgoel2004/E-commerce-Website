@@ -26,7 +26,6 @@ const Shipping = () => {
   const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
   const shippingSubmit = (e) => {
     e.preventDefault();
-    console.log(phoneNo);
     if (phoneNo.length < 10 || phoneNo.length > 10) {
       alert.error("Phone Number should be 10 digit");
       return;

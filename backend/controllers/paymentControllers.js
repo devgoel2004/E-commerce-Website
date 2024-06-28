@@ -1,26 +1,38 @@
+const crypto = require("crypto");
+const Razorpay = require("razorpay");
+const { Payment } = require("../models/paymentModel");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-exports.processPayment = catchAsyncErrors(async (req, res, next) => {
-  const myPayment = await stripe.paymentIntents.create({
-    amount: req.body.amount,
-    currency: "inr",
-    metadata: {
-      company: "ShopFusion",
-    },
+exports.checkOut = catchAsyncErrors(async (req, res) => {
+  const options = {
+    amount: Number(req.body.amount),
+    currency: "INR",
+    receipt: "order_rcptid_l1",
+  };
+  const instance = new Razorpay({
+    key_id: process.env.RAZORPAY_API_KEY,
+    key_secret: process.env.RAZORPAY_API_SECRET,
   });
+  const order = await instance.orders.create(options);
+  
   res.status(200).json({
     success: true,
-    client_secret: myPayment.client_secret,
+    order,
   });
 });
-
-exports.sendStripeApiKey = catchAsyncErrors(async (req, res, next) => {
-  res.status(200).json({
-    stripeApiKey: process.env.STRIPE_API_KEY,
+exports.paymentVerification = async (req, res) => {
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+    req.body;
+  const body = razorpay_order_id + "|" + razorpay_payment_id;
+  const expectedSignature = crypto
+    .createHmac("sha256", process.env.RAZORPAY_API_SECRET)
+    .update(body.toString())
+    .digest("hex");
+  await Payment.create({
+    razorpay_order_id,
+    razorpay_payment_id,
+    razorpay_signature,
   });
-});
-exports.sendStripeSecretKey = catchAsyncErrors(async (req, res, next) => {
-  res.status(200).json({
-    stripeSecretKey: process.env.STRIPE_SECRET_KEY,
-  });
-});
+  res.redirect(
+    `http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}`
+  );
+};

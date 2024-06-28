@@ -1,6 +1,7 @@
 const app = require("./app");
 const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
+const Razorpay = require("razorpay");
 const mongoo = require("./config/db");
 process.on("uncaughtException", (err) => {
   console.log(`Error : ${err.message}`);
@@ -15,7 +16,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 const port = process.env.PORT;
-
 const server = app.listen(port, () => {
   console.log("Server is working");
 });

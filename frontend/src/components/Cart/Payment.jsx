@@ -1,134 +1,62 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import CheckOutSteps from "./CheckOutSteps";
-import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/Header/MetaData";
 import "./Payment.css";
-import { Typography } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
-import {
-  CardNumberElement,
-  CardCvcElement,
-  CardExpiryElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
 import axios from "axios";
-import CreditCardIcon from "@material-ui/icons/CreditCard";
-import EventIcon from "@material-ui/icons/Event";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-  const [stripeApiKey, setStripeApiKey] = useState("");
-  const dispatch = useDispatch();
-  const alert = useAlert();
-  const stripe = useStripe();
-  const elements = useElements();
-  const payBtn = useRef(null);
-  const navigate = useNavigate();
-  async function getStripeApiKey() {
-    const { data } = await axios.get(
-      "http://localhost:4000/api/v1/stripesecretkey",
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    var amount = Math.round(orderInfo.totalPrice * 100);
+    const {
+      data: { key },
+    } = await axios.get("http://localhost:4000/api/getKey");
+
+    const {
+      data: { order },
+    } = await axios.post(
+      "http://localhost:4000/api/v1/checkOut",
+      {
+        amount,
+      },
       {
         withCredentials: true,
       }
     );
-    console.log(data);
-    setStripeApiKey(data.stripeApiKey);
-  }
-  const { shippingInfo, cartItems } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.user);
-  const paymentData = {
-    amount: Math.round(orderInfo.totalPrice * 100),
+    const options = {
+      key,
+      amount: order.amount,
+      currency: "INR",
+      name: "ShopFusion",
+      description: "E commerce Website Transaction",
+      image:
+        "data:image/jpeg;base64,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",
+      order_id: order.id,
+      callback_url: "http://localhost:3000/",
+      profile: {
+        name: "Dev Goel",
+        email: "devgoel901@gmail.com",
+        contact: "9690011021",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    var razor = new window.Razorpay(options);
+    razor.open();
   };
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    payBtn.current.disabled = true;
-
-    const stripeSecretKey =
-      "sk_test_51OcvlQSDrIdm1BliK1mrIfp8qsG45ZbIYKGHJJhGAUuF4CECNOTmIvyMnmZ2vNg3iHV6HX2NSjFRlNqZEXGsc1eB00cBYJ6p5X";
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer${stripeSecretKey}`,
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      };
-      console.log(`Bearer ${stripeSecretKey}`);
-      const { data } = await axios.post(
-        "http://localhost:4000/api/v1/payment/process",
-        paymentData,
-        config
-      );
-      console.log(data);
-      const client_secret = data.client_secret;
-      if (!stripe || !elements) {
-        return;
-      }
-      const result = await stripe.confirmCardPayment(client_secret, {
-        payment_method: {
-          card: elements.getElement(CardNumberElement),
-          billing_details: {
-            name: user.name,
-            email: user.email,
-            address: {
-              line1: shippingInfo.address,
-              city: shippingInfo.city,
-              state: shippingInfo.state,
-              postal_code: shippingInfo.pinCode,
-              country: shippingInfo.country,
-            },
-          },
-        },
-      });
-      if (result.error) {
-        payBtn.current.disabled = false;
-        console.log(result.error.message);
-        alert.error(result.error.message);
-      } else {
-        if (result.paymentIntent.status === "succeeded") {
-          navigate("/success");
-        } else {
-          alert.error("There's some issue while processing payment");
-        }
-      }
-    } catch (error) {
-      payBtn.current.disabled = false;
-      console.log(error.response.data.message);
-
-      alert.error(error.response.data.message);
-    }
-  };
-  useEffect(() => {
-    getStripeApiKey();
-  }, []);
   return (
     <>
       <MetaData title={"Payment"} />
       <CheckOutSteps activeStep={2} />
       <div className="paymentContainer">
-        <form className="paymentForm" onSubmit={(e) => submitHandler(e)}>
-          <Typography>Card Info</Typography>
-          <div>
-            <CreditCardIcon />
-            <CardNumberElement className="paymentInput" />
-          </div>
-          <div>
-            <EventIcon />
-            <CardExpiryElement className="paymentInput" />
-          </div>
-          <div>
-            <VpnKeyIcon />
-            <CardCvcElement className="paymentInput" />
-          </div>
-          <input
-            type="submit"
-            value={`Pay - ${orderInfo && orderInfo.totalPrice} `}
-            ref={payBtn}
-            className="paymentFormBtn"
-          />
-        </form>
+        <button onClick={(e) => submitHandler(e)}>
+          {" "}
+          {`Pay ₹${orderInfo && orderInfo.totalPrice}`}
+        </button>
       </div>
     </>
   );

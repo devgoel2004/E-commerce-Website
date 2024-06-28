@@ -82,7 +82,6 @@ const Login = () => {
     }
     if (isAuthenticated) {
       alert.success("Login Done!");
-
       navigate(`/${redirect}`);
     }
   }, [dispatch, error, alert, isAuthenticated, redirect]);

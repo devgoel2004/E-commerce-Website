@@ -30,17 +30,8 @@ function App() {
   const { isAuthenticated, user, loading, error } = useSelector(
     (state) => state.user
   );
-  const [stripeApiKey, setStripeApiKey] = useState("");
-  async function getStripeApiKey() {
-    const { data } = await axios.get(
-      "http://localhost:4000/api/v1/stripeapikey"
-    );
-   
-    setStripeApiKey(data.stripeApiKey);
-  }
   useEffect(() => {
     store.dispatch(loadUser());
-    getStripeApiKey();
   }, []);
   return (
     <BrowserRouter>
@@ -63,12 +54,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/order/confirm" element={<ConfirmOrder />} />
-          {stripeApiKey && (
-            <Route
-              path="/process/payment"
-              element={<PaymentWrapper stripeApiKey={stripeApiKey} />}
-            />
-          )}
+          <Route path="/process/payment" element={<PaymentWrapper />} />
         </Routes>
         <Footer />
       </div>
