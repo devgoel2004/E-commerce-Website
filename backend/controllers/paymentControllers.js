@@ -1,7 +1,10 @@
 const crypto = require("crypto");
 const Razorpay = require("razorpay");
-const { Payment } = require("../models/paymentModel");
+const sendEmail = require("../utils/sendEmail");
+const Payment = require("../models/paymentModel");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const User = require("../models/userModel");
+const jwt = require("jsonwebtoken");
 exports.checkOut = catchAsyncErrors(async (req, res) => {
   const options = {
     amount: Number(req.body.amount),
@@ -32,7 +35,14 @@ exports.paymentVerification = async (req, res) => {
     razorpay_payment_id,
     razorpay_signature,
   });
-  res.redirect(
-    `http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}`
-  );
+  const { token } = req.cookies;
+  const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+  const user = await User.findById(decodedData.id);
+  const message = `This is your order confirmation message`;
+  await sendEmail({
+    email: user.email,
+    subject: `Order Confirmation`,
+    message,
+  });
+  res.redirect(`http://localhost:3000/payment/success`);
 };

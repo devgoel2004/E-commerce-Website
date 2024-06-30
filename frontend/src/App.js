@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
@@ -21,16 +20,19 @@ import ForgotPassword from "./components/Profile/ForgotPassword";
 import ResetPassword from "./components/Profile/ResetPassword";
 import Cart from "./components/Cart/Cart";
 import Shipping from "./components/Cart/Shipping";
-import Payment from "./components/Cart/Payment";
 import ConfirmOrder from "./components/Cart/ConfirmOrder";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import PaymentWrapper from "./components/Cart/PaymentWrapper";
+import OrderSuccess from "./components/Cart/OrderSuccess";
+import MyOrders from "./components/Order/MyOrders";
+import { useAlert } from "react-alert";
+import OrderDetails from "./components/Order/OrderDetails";
 function App() {
-  const { isAuthenticated, user, loading, error } = useSelector(
-    (state) => state.user
-  );
+  const alert = useAlert();
+  const { isAuthenticated, user, error } = useSelector((state) => state.user);
   useEffect(() => {
+    if (error) {
+      alert.error(error);
+    }
     store.dispatch(loadUser());
   }, []);
   return (
@@ -55,6 +57,9 @@ function App() {
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/order/confirm" element={<ConfirmOrder />} />
           <Route path="/process/payment" element={<PaymentWrapper />} />
+          <Route path="/payment/success" element={<OrderSuccess />} />
+          <Route path="/orders" element={<MyOrders />} />
+          <Route path="/order/:id" element={<OrderDetails />} />
         </Routes>
         <Footer />
       </div>

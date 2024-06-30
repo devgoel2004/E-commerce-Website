@@ -1,5 +1,5 @@
 .confirmOrderPage {
-  height: 100vh;
+  height: 85vh;
   background-color: white;
   display: grid;
   grid-template-columns: 6fr 3fr;
@@ -10,6 +10,13 @@
 .confirmshippingArea {
   padding: 5vmax;
   padding-bottom: 0%;
+}
+.payment-process {
+  background-color: tomato;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  /* border-radius: 5%; */
 }
 .confirmshippingArea > p {
   font: 400 1.8vmax "Roboto";

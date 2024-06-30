@@ -74,7 +74,7 @@ const Cart = () => {
                       </button>
                     </div>
                     <p className="cartSubtotal">
-                    ₹{item.price * item.quantity}
+                      ₹{item.price * item.quantity}
                     </p>
                   </div>
                   <div className="cartGrossProfit">

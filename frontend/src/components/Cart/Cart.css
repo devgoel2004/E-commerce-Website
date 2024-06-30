@@ -26,6 +26,7 @@
 }
 .cartPage {
   padding: 5vmax;
+  min-height: 85vh;
 }
 .cartHeader {
   background-color: tomato;

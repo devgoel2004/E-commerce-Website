@@ -32,7 +32,6 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-
       price: {
         type: Number,
         required: true,
@@ -43,9 +42,8 @@ const orderSchema = new mongoose.Schema({
       },
       image: {
         type: String,
-        required: true,
       },
-      productId: {
+      product: {
         type: mongoose.Schema.ObjectId,
         ref: "Product",
         required: true,
