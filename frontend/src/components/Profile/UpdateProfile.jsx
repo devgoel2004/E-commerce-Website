@@ -13,7 +13,7 @@ const UpdateProfile = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const { error, isUpdated, loading } = useSelector((state) => state.profile);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,6 +38,10 @@ const UpdateProfile = () => {
     reader.readAsDataURL(e.target.files[0]);
   };
   useEffect(() => {
+    if (isAuthenticated === false) {
+      navigate("/login");
+      alert.error("Login To Access");
+    }
     if (user) {
       setName(user.name);
       setEmail(user.email);
@@ -55,7 +59,7 @@ const UpdateProfile = () => {
         type: UPDATE_PROFILE_RESET,
       });
     }
-  }, [dispatch, error, alert, user, isUpdated]);
+  }, [dispatch, error, alert, user, isUpdated, isAuthenticated]);
   return (
     <>
       {loading ? (

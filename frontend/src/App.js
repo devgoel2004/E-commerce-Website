@@ -26,6 +26,8 @@ import OrderSuccess from "./components/Cart/OrderSuccess";
 import MyOrders from "./components/Order/MyOrders";
 import { useAlert } from "react-alert";
 import OrderDetails from "./components/Order/OrderDetails";
+import DashBoard from "./components/Admin/DashBoard";
+import ProductList from "./components/Admin/ProductList";
 function App() {
   const alert = useAlert();
   const { isAuthenticated, user, error } = useSelector((state) => state.user);
@@ -60,6 +62,8 @@ function App() {
           <Route path="/payment/success" element={<OrderSuccess />} />
           <Route path="/orders" element={<MyOrders />} />
           <Route path="/order/:id" element={<OrderDetails />} />
+          <Route path="/admin/dashboard" element={<DashBoard />} />
+          <Route path="/admin/products" element={<ProductList />} />
         </Routes>
         <Footer />
       </div>

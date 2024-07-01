@@ -32,7 +32,6 @@ export const createOrder = (order) => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: CREATE_ORDER_FAIL,
       payload: error.payload.data.message,
@@ -68,7 +67,6 @@ export const getOrderDetails = (id) => async (dispatch) => {
     );
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data.order });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: ORDER_DETAILS_FAIL,
       error: error.payload.data.message,

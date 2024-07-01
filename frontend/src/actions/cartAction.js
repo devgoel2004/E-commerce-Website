@@ -26,7 +26,6 @@ export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
       JSON.stringify(getState().cart.cartItems)
     );
   } catch (error) {
-    console.log(error);
   }
 };
 //remove from cart

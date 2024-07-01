@@ -100,7 +100,6 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
   const isReviewed = product.reviews.find(
     (rev) => rev.user.toString() === req.user._id.toString()
   );
-  console.log(isReviewed);
   if (isReviewed) {
     product.reviews.forEach((rev) => {
       if (rev.user.toString() === req.user._id.toString()) {
@@ -167,5 +166,12 @@ exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
   );
   res.status(200).json({
     success: true,
+  });
+});
+exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
+  const products = await Product.find();
+  res.status(200).json({
+    success: true,
+    products,
   });
 });

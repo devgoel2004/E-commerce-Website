@@ -48,7 +48,6 @@ export const login = (email, password) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: LOGIN_FAIL,
       payload: error.response,
@@ -95,7 +94,6 @@ export const loadUser = () => async (dispatch) => {
       payload: data.user,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: LOAD_USER_FAIL,
       payload: error.response.data.message,
@@ -138,7 +136,6 @@ export const updateProfile = (userData) => async (dispatch) => {
       payload: data.success,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: UPDATE_PROFILE_FAIL,
       payload: error.response.data.message,
@@ -165,7 +162,6 @@ export const updatePassword = (password) => async (dispatch) => {
       payload: data.success,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: UPDATE_PASSWORD_FAIL,
       payload: error.response.data.message,
@@ -194,7 +190,6 @@ export const forgotPasswordAction = (email) => async (dispatch) => {
       payload: data.message,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: FORGOT_PASSWORD_FAIL,
       payload: error.response.data.message,
@@ -223,7 +218,6 @@ export const resetPasswordAction = (token, password) => async (dispatch) => {
       payload: data.success,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: RESET_PASSWORD_FAIL,
       payload: error.response.data.message,
