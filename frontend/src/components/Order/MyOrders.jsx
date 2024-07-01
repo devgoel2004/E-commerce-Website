@@ -48,7 +48,6 @@ const MyOrders = () => {
     },
   ];
   const rows = [];
-  console.log(orders);
   orders &&
     orders.forEach((item, index) => {
       rows.push({

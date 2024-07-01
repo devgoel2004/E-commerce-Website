@@ -42,10 +42,11 @@ const Header = ({ isAuthenticated }) => {
             onClick={toggleActiveClass}
             className="fa-solid fa-bars"
             id="bar-icon"></i>
-
-          <img src={image} alt="Shop" />
-          <b>Shop</b>
-          <span>Fusion</span>
+          <Link href="/">
+            <img src={image} alt="Shop" />
+            <b>Shop</b>
+            <span>Fusion</span>
+          </Link>
         </div>
         <div className="searchbox">
           <form action="searchForm" onSubmit={searchSubmitHandler}>

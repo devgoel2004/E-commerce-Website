@@ -87,16 +87,20 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
 //Create new Review or Update the review
 exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
+
   const review = {
-    user: req.user.id,
+    user: req.user._id,
     name: req.user.name,
     rating: Number(rating),
     comment,
   };
+
   const product = await Product.findById(productId);
+
   const isReviewed = product.reviews.find(
     (rev) => rev.user.toString() === req.user._id.toString()
   );
+  console.log(isReviewed);
   if (isReviewed) {
     product.reviews.forEach((rev) => {
       if (rev.user.toString() === req.user._id.toString()) {
@@ -112,9 +116,13 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
     avg += rev.rating;
   });
   product.ratings = avg / product.reviews.length;
+  product.user = req.user._id;
+
   await product.save();
+
   res.status(200).json({
     success: true,
+    product,
   });
 });
 //Get All review of product
