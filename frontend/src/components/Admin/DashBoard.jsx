@@ -15,11 +15,12 @@ import {
   ArcElement,
 } from "chart.js";
 import { Doughnut, Line } from "react-chartjs-2";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/Header/MetaData";
 import Loader from "../Loader/Loader";
+import { clearErrors, getAdminProduct } from "../../actions/productActions";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -33,8 +34,16 @@ ChartJS.register(
 const DashBoard = () => {
   const navigate = useNavigate();
   const alert = useAlert();
-  const { loading, isAuthenticated, user } = useSelector((state) => state.user);
-
+  const dispatch = useDispatch();
+  const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+  const { products, error } = useSelector((state) => state.products);
+  let outOfStock = 0;
+  products &&
+    products.forEach((item) => {
+      if (item.Stock === 0) {
+        outOfStock += 1;
+      }
+    });
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
     datasets: [
@@ -52,19 +61,17 @@ const DashBoard = () => {
       {
         backgroundColor: ["#00A684", "#680084"],
         hoverBackgroundColor: ["#4B5000", "#35014F"],
-        data: [2, 10],
+        data: [outOfStock, products.length - outOfStock],
       },
     ],
   };
   useEffect(() => {
-    if (isAuthenticated === false) {
-      navigate("/login");
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
     }
-    if (user.role !== "admin") {
-      navigate("/login");
-      alert.error("Not allowed to access this resource");
-    }
-  }, [isAuthenticated, user, alert]);
+    dispatch(getAdminProduct());
+  }, [alert, error, dispatch]);
   return (
     <>
       {loading ? (
@@ -85,7 +92,7 @@ const DashBoard = () => {
                 <div className="dashboardSummaryBox2">
                   <Link to="/admin/products">
                     <p>Product</p>
-                    <p>50</p>
+                    <p>{products && products.length}</p>
                   </Link>
                   <Link to="/admin/orders">
                     <p>Orders</p>

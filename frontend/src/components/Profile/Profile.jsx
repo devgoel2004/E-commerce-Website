@@ -7,7 +7,6 @@ import "./Profile.css";
 const Profile = () => {
   const navigate = useNavigate();
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
-
   useEffect(() => {
     if (isAuthenticated === false) {
       navigate("/login");

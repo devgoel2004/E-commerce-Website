@@ -1,30 +1,39 @@
 import React, { Fragment, useEffect } from "react";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import "./ProductList.css";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, getAdminProduct } from "../../actions/productActions";
+import {
+  clearErrors,
+  getAdminProduct,
+  deleteProduct,
+} from "../../actions/productActions";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import MetaData from "../layout/Header/MetaData";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import SlideBar from "./SlideBar";
 import Loader from "../Loader/Loader";
+
 const ProductList = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const alert = useAlert();
   const navigate = useNavigate();
-  const { loading, isAuthenticated, user } = useSelector((state) => state.user);
-  const { error, products } = useSelector((state) => state.products);
-  if (isAuthenticated === false) {
-    navigate("/login");
-  }
-  if (user.role !== "admin") {
-    navigate("/login");
-    alert.error("Not allowed to access this resource");
-  }
+  const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+  const { products, error } = useSelector((state) => state.products);
+  const deleteProductHandler = (id) => {
+    dispatch(deleteProduct(id));
+  };
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    dispatch(getAdminProduct());
+  }, [isAuthenticated, error, alert, dispatch, navigate]);
+
   const columns = [
     { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
     {
@@ -56,13 +65,19 @@ const ProductList = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <>
-            <Link to={`/admin/products/${params.getValue(id, "id")}`}></Link>
-          </>
+          <Fragment>
+            <Link to={`/admin/product/${params.id}`}>
+              <EditIcon />
+            </Link>
+            <Button onClick={() => deleteProductHandler(params.id)}>
+              <DeleteIcon />
+            </Button>
+          </Fragment>
         );
       },
     },
   ];
+
   const rows = [];
   products &&
     products.forEach((item) => {
@@ -73,26 +88,28 @@ const ProductList = () => {
         name: item.name,
       });
     });
-  useEffect(() => {
-    if (isAuthenticated === false) {
-      navigate("/login");
-    }
-    if (user.role !== "admin") {
-      navigate("/login");
-      alert.error("Not allowed to access this resource");
-    }
-  }, [isAuthenticated, user, alert]);
+
   return (
     <>
       {loading ? (
-        <Loader></Loader>
+        <Loader />
       ) : (
         <>
           <MetaData title={"ALL PRODUCTS -- ADMIN"} />
           <div className="dashboard">
-            <SlideBar></SlideBar>
+            <SlideBar />
             <div className="productListContainer">
               <h1 id="productListHeading">ALL PRODUCTS</h1>
+              {rows.length > 0 && (
+                <DataGrid
+                  rows={rows}
+                  columns={columns}
+                  pageSize={10}
+                  disableSelectionOnClick
+                  className="productListTable"
+                  autoHeight
+                />
+              )}
             </div>
           </div>
         </>

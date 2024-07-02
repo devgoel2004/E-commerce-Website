@@ -18,6 +18,7 @@ const categories = [
   "Attire",
   "Camera",
   "Phone",
+  "Clothes",
 ];
 const Product = () => {
   const dispatch = useDispatch();
