@@ -4,8 +4,15 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.171);
   padding: 2vmax;
   color: rgba(0, 0, 0, 0.678);
-  font: 500 1.5vmax "Roboto";
+  font: 500 2.5vmax "Roboto";
   text-align: center;
+}
+.noProductFound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 55vh;
 }
 .products {
   display: flex;
@@ -89,6 +96,10 @@
   }
   .page-link {
     font: 300 1.7vmax "Roboto";
+  }
+  .productsHeading {
+    font-size: 1vmax;
+    width: 30vw;
   }
   .category-link {
     font: 400 1.8vmax "Roboto";

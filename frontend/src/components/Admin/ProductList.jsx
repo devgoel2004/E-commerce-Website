@@ -15,14 +15,18 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SlideBar from "./SlideBar";
 import Loader from "../Loader/Loader";
+import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
 
 const ProductList = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const alert = useAlert();
   const navigate = useNavigate();
-  const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+  const { loading, isAuthenticated } = useSelector((state) => state.user);
   const { products, error } = useSelector((state) => state.products);
+  const { error: deleteError, isDeleted } = useSelector(
+    (state) => state.deleteProduct
+  );
   const deleteProductHandler = (id) => {
     dispatch(deleteProduct(id));
   };
@@ -31,8 +35,19 @@ const ProductList = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
+    if (deleteError) {
+      alert.error(deleteError);
+      dispatch(clearErrors());
+    }
+    if (isDeleted) {
+      alert.success("Product Delete Successfully");
+      navigate("/admin/dashboard");
+      dispatch({
+        type: DELETE_PRODUCT_RESET,
+      });
+    }
     dispatch(getAdminProduct());
-  }, [isAuthenticated, error, alert, dispatch, navigate]);
+  }, [error, alert, dispatch, navigate, deleteError, isDeleted]);
 
   const columns = [
     { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
@@ -69,7 +84,7 @@ const ProductList = () => {
             <Link to={`/admin/product/${params.id}`}>
               <EditIcon />
             </Link>
-            <Button onClick={() => deleteProductHandler(params.id)}>
+            <Button onClick={() => deleteProductHandler(params.id, "id")}>
               <DeleteIcon />
             </Button>
           </Fragment>

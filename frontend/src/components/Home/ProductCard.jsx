@@ -7,18 +7,20 @@ const ProductCard = ({ product }) => {
     value: product.ratings,
     readOnly: true,
     precision: 0.5,
+    size: "small",
   };
   return (
     <>
       <Link className="productCard" to={`/product/${product._id}`}>
-        <img src={product.images} alt={product.name} />
+        <img src={product.images[0].url} alt={product.name} />
         <p>{product.name}</p>
         <div>
           <Rating {...options} />
           <br />
           <span className="productCardSpan">
             {" "}
-            ({product.numOfReviews} Reviews)
+            ( {product.numOfReviews === 0 ? "No" : product.numOfReviews}{" "}
+            {product.numOfReviews <= 1 ? "Review" : "Reviews"} )
           </span>
         </div>
         <span>{`₹${product.price}`}</span>

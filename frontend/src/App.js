@@ -30,6 +30,9 @@ import DashBoard from "./components/Admin/DashBoard";
 import ProductList from "./components/Admin/ProductList";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 import NewProduct from "./components/Admin/NewProduct";
+import UpdateProduct from "./components/Admin/UpdateProduct";
+import OrderList from "./components/Admin/OrderList";
+import ProcessOrder from "./components/Admin/ProcessOrder";
 function App() {
   const alert = useAlert();
   const { isAuthenticated, user, error } = useSelector((state) => state.user);
@@ -45,25 +48,81 @@ function App() {
         <Header isAuthenticated={isAuthenticated} />
         {isAuthenticated && <UserOptions user={user} />}
         <Routes>
-          <Route path="/me/update" element={<UpdateProfile />} />
+          <Route
+            path="/me/update"
+            element={
+              <ProtectedRoute>
+                <UpdateProfile />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/password/update" element={<UpdatePassword />} />
           <Route path="/password/forgot" element={<ForgotPassword />} />
-          <Route path="/" element={<Home></Home>} />
+          <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/products" element={<Product />} />
           <Route path="/search" element={<Search />} />
           <Route path="/products/:keyword" element={<Product />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/account" element={<Profile />} />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/password/reset/:token" element={<ResetPassword />} />
           <Route path="*" element={<Error />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/shipping" element={<Shipping />} />
-          <Route path="/order/confirm" element={<ConfirmOrder />} />
-          <Route path="/process/payment" element={<PaymentWrapper />} />
-          <Route path="/payment/success" element={<OrderSuccess />} />
-          <Route path="/orders" element={<MyOrders />} />
-          <Route path="/order/:id" element={<OrderDetails />} />
+          <Route
+            path="/shipping"
+            element={
+              <ProtectedRoute>
+                <Shipping />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/order/confirm"
+            element={
+              <ProtectedRoute>
+                <ConfirmOrder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/process/payment"
+            element={
+              <ProtectedRoute>
+                <PaymentWrapper />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/payment/success"
+            element={
+              <ProtectedRoute>
+                <OrderSuccess />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute>
+                <MyOrders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/order/:id"
+            element={
+              <ProtectedRoute>
+                <OrderDetails />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/admin/dashboard"
             element={
@@ -86,6 +145,32 @@ function App() {
             element={
               <ProtectedRoute isAdmin={true}>
                 <NewProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/admin/product/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UpdateProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/admin/orders"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <OrderList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/order/:id"
+            element={
+              <ProtectedRoute>
+                <ProcessOrder />
               </ProtectedRoute>
             }
           />

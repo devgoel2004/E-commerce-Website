@@ -10,7 +10,7 @@
   top: 0%;
   left: 0;
 }
-.searchBox > input[type="text"] {
+.searchBoxInput {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.274);
   background-color: white;
   border: none;

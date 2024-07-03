@@ -62,9 +62,9 @@ const Header = ({ isAuthenticated }) => {
         </div>
         <div className="list">
           <ul>
-            <li>About us</li>
+            <li>About Us</li>
             <li>Blog</li>
-            <li>Contact us</li>
+            <li>Contact Us</li>
             <li>Help & Support</li>
           </ul>
         </div>

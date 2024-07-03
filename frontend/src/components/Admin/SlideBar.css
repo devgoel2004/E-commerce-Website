@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   padding: 4rem 0;
+  align-items: center;
 }
 .sidebar > a:first-child {
   padding: 0;
@@ -17,7 +18,7 @@
 .sidebar a {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.8);
-  font: 200 1rem "Roboto";
+  font: 300 1rem "Roboto";
   padding: 2rem;
   transition: all 0.5s;
 }
@@ -28,6 +29,7 @@
 .sidebar a > P {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .sidebar a > p > svg {
   margin-right: 0.5rem;

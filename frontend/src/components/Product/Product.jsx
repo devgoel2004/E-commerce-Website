@@ -41,7 +41,6 @@ const Product = () => {
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice);
   };
-  let count = filteredProductsCount;
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -57,63 +56,122 @@ const Product = () => {
         <>
           <MetaData title="PRODUCTS -- ECOMMERCE" />
           <h2 className="productsHeading">Products</h2>
-          <div className="products">
-            {products &&
-              products.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
-          </div>
-          <div className="filterBox">
-            <Typography>Price</Typography>
-            <Slider
-              value={price}
-              onChange={priceHandler}
-              valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
-              min={0}
-              max={100000}></Slider>
-            <Typography>Categories</Typography>
-            <ul className="categoryBox">
-              {categories.map((category) => (
-                <li
-                  className="category-link"
-                  key={category}
-                  onClick={() => setCategory(category)}>
-                  {category}
-                </li>
-              ))}
-            </ul>
-            <fieldset>
-              <Typography component="legend">Rating Above</Typography>
-              <Slider
-                value={ratings}
-                onChange={(e, newRating) => {
-                  setRatings(newRating);
-                }}
-                valueLabelDisplay="auto"
-                aria-labelledby="continous-slider"
-                min={0}
-                max={5}
-              />
-            </fieldset>
-          </div>
+          {products.length === 0 ? (
+            <>
+              <h1 className="noProductFound">No Product Found</h1>
+              <div className="filterBox">
+                <Typography>Price</Typography>
+                <Slider
+                  value={price}
+                  onChange={priceHandler}
+                  valueLabelDisplay="auto"
+                  aria-labelledby="range-slider"
+                  min={0}
+                  max={100000}></Slider>
+                <Typography>Categories</Typography>
+                <ul className="categoryBox">
+                  {categories.map((category) => (
+                    <li
+                      className="category-link"
+                      key={category}
+                      onClick={() => setCategory(category)}>
+                      {category}
+                    </li>
+                  ))}
+                </ul>
+                <fieldset>
+                  <Typography component="legend">Rating Above</Typography>
+                  <Slider
+                    value={ratings}
+                    onChange={(e, newRating) => {
+                      setRatings(newRating);
+                    }}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="continous-slider"
+                    min={0}
+                    max={5}
+                  />
+                </fieldset>
+              </div>
 
-          <div className="paginationBox">
-            <Pagination
-              activePage={currentPage}
-              itemsCountPerPage={resultPerPage}
-              totalItemsCount={productCount}
-              onChange={setCurrentPageNo}
-              nextPageText="Next"
-              prevPageText="Prev"
-              firstPageText="1st"
-              lastPageText="Last"
-              itemClass="page-item"
-              linkClass="page-link"
-              activeClass="pageItemActive"
-              activeLinkClass="pageLinkActive"
-            />
-          </div>
+              <div className="paginationBox">
+                <Pagination
+                  activePage={currentPage}
+                  itemsCountPerPage={resultPerPage}
+                  totalItemsCount={productCount}
+                  onChange={setCurrentPageNo}
+                  nextPageText="Next"
+                  prevPageText="Prev"
+                  firstPageText="1st"
+                  lastPageText="Last"
+                  itemClass="page-item"
+                  linkClass="page-link"
+                  activeClass="pageItemActive"
+                  activeLinkClass="pageLinkActive"
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="products">
+                {products &&
+                  products.map((product) => (
+                    <ProductCard key={product._id} product={product} />
+                  ))}
+              </div>
+              <div className="filterBox">
+                <Typography>Price</Typography>
+                <Slider
+                  value={price}
+                  onChange={priceHandler}
+                  valueLabelDisplay="auto"
+                  aria-labelledby="range-slider"
+                  min={0}
+                  max={100000}></Slider>
+                <Typography>Categories</Typography>
+                <ul className="categoryBox">
+                  {categories.map((category) => (
+                    <li
+                      className="category-link"
+                      key={category}
+                      onClick={() => setCategory(category)}>
+                      {category}
+                    </li>
+                  ))}
+                </ul>
+                <fieldset>
+                  <Typography component="legend">Rating Above</Typography>
+                  <Slider
+                    value={ratings}
+                    onChange={(e, newRating) => {
+                      setRatings(newRating);
+                    }}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="continous-slider"
+                    min={0}
+                    max={5}
+                  />
+                </fieldset>
+              </div>
+
+              <div className="paginationBox">
+                <Pagination
+                  activePage={currentPage}
+                  itemsCountPerPage={resultPerPage}
+                  totalItemsCount={productCount}
+                  onChange={setCurrentPageNo}
+                  nextPageText="Next"
+                  prevPageText="Prev"
+                  firstPageText="1st"
+                  lastPageText="Last"
+                  itemClass="page-item"
+                  linkClass="page-link"
+                  activeClass="pageItemActive"
+                  activeLinkClass="pageLinkActive"
+                />
+              </div>
+            </>
+          )}
         </>
       )}
     </>

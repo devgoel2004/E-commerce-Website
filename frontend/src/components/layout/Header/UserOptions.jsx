@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import Backdrop from "@material-ui/core/Backdrop";
 import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { logout } from "../../../actions/userAction";
+import { getProductDetails } from "../../../actions/productActions";
 const UserOptions = ({ user }) => {
   const { cartItems } = useSelector((state) => state.cart);
   const navigate = useNavigate();
@@ -18,7 +19,11 @@ const UserOptions = ({ user }) => {
   const alert = useAlert();
   const [open, setOpen] = useState(true);
   const dashboard = () => {
-    navigate("/dashboard");
+    if (user.role === "admin") {
+      navigate("/admin/dashboard");
+    } else {
+      navigate("/dashboard");
+    }
   };
   const orders = () => {
     navigate("/orders");
@@ -55,6 +60,9 @@ const UserOptions = ({ user }) => {
       func: dashboard,
     });
   }
+  useEffect(() => {
+    dispatch(getProductDetails("66581f43affcbac4484f6b6f"));
+  }, [dispatch]);
 
   return (
     <>

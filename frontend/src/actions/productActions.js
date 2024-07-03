@@ -19,7 +19,12 @@ import {
   DELETE_PRODUCT_REQUEST,
   DELETE_PRODUCT_FAIL,
   DELETE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAIL,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_RESET,
 } from "../constants/productConstants";
+import { useEffect } from "react";
 export const getProduct =
   (keyword = "", currentPage = 1, price = [0, 100000], category, ratings = 0) =>
   async (dispatch) => {
@@ -51,7 +56,7 @@ export const getProductDetails = (id) => async (dispatch) => {
     );
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
-      payload: data.product,
+      payload: data,
     });
   } catch (error) {
     dispatch({
@@ -131,7 +136,6 @@ export const createProduct = (productData) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: NEW_PRODUCT_FAIL,
       payload: error.response.data.message,
@@ -150,8 +154,7 @@ export const deleteProduct = (id) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.delete(
-      `http://localhost:4000/api/v1/admin/product/${id}`,
-
+      `http://localhost:4000/api/v1/product/${id}`,
       config
     );
     dispatch({
@@ -159,9 +162,36 @@ export const deleteProduct = (id) => async (dispatch) => {
       payload: data.success,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: DELETE_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const updateProduct = (id, productData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: UPDATE_PRODUCT_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.put(
+      `http://localhost:4000/api/v1/product/${id}`,
+      productData,
+      config
+    );
+    dispatch({
+      type: UPDATE_PRODUCT_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PRODUCT_FAIL,
       payload: error.response.data.message,
     });
   }

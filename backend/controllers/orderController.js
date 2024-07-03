@@ -66,12 +66,12 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
 });
 //Update order status -- Admin
 exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
-  const order = await Order.find(req.params.id);
-  if (order.orderedStatus === "Delivered") {
+  const order = await Order.findById(req.params.id);
+  if (order.orderStatus === "Delivered") {
     return next(new ErrorHandler("You have delivered this order", 400));
   }
   order.orderItems.forEach(async (order) => {
-    await updateStock(order.Product, order.quantity);
+    await updateStock(order.product, order.quantity);
   });
   if (req.body.status === "Delivered") {
     order.deliveredAt = Date.now();
@@ -83,17 +83,17 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
 });
 async function updateStock(id, quantity) {
   const product = await Product.findById(id);
-  product.stock -= quantity;
+  product.Stock -= quantity;
   await product.save();
 }
 
 //Delete Order -- Admin
 exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {
-  const order = await Order.find(req.params.id);
+  const order = await Order.findById(req.params.id);
   if (!order) {
     return next(new ErrorHandler("Order not found with this id", 404));
   }
-  await order.remove();
+  await Order.findByIdAndDelete(req.params.id);
   res.status(200).json({
     success: true,
   });
