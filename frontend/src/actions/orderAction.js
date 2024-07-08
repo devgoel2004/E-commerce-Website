@@ -79,6 +79,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
       `http://localhost:4000/api/v1/order/${id}`,
       { withCredentials: true }
     );
+    console.log(data);
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data.order });
   } catch (error) {
     dispatch({

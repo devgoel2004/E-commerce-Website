@@ -23,13 +23,14 @@ const ProcessOrder = () => {
   const { id } = useParams();
   const { order, error, loading } = useSelector((state) => state.orderDetails);
   const { error: updateError, isUpdated } = useSelector((state) => state.order);
+  const [status, setStatus] = useState("");
   const updateOrderSubmitHandler = (e) => {
     e.preventDefault();
-    const myForm = new FormData();
-    myForm.set("status", status);
-    dispatch(updateOrder(id, myForm));
+    const x = {
+      status: status,
+    };
+    dispatch(updateOrder(id, x));
   };
-  const [status, setStatus] = useState("");
 
   useEffect(() => {
     if (error) {
@@ -60,7 +61,9 @@ const ProcessOrder = () => {
           ) : (
             <>
               <div className="confirmshippingArea">
-                <Typography>Shipping Info</Typography>
+                <Typography style={{ fontSize: "1.8rem" }}>
+                  Shipping Info
+                </Typography>
                 <div className="orderDetailsContainerBox">
                   <div>
                     <p>Name: </p>
@@ -79,43 +82,41 @@ const ProcessOrder = () => {
                         `${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.state}, ${order.shippingInfo.pinCode}, ${order.shippingInfo.country}`}
                     </span>
                   </div>
-                  <Typography>Payment</Typography>
-                  <div className="orderDetailsContainerBox">
-                    <div>
-                      <p
-                        className={
-                          order.paymentInfo &&
-                          order.paymentInfo.status === "succeeded"
-                            ? "greenColor"
-                            : "redColor"
-                        }>
-                        {order.paymentInfo &&
+                  <div>
+                    <Typography>Payment</Typography>
+                    <span
+                      className={
+                        order.paymentInfo &&
                         order.paymentInfo.status === "succeeded"
-                          ? "PAID"
-                          : "NOT PAID"}
-                      </p>
-                    </div>
-                    <div>
-                      <p>Amount: </p>
-                      <span>{order.totalPrice && order.totalPrice}</span>
-                    </div>
+                          ? "greenColor"
+                          : "redColor"
+                      }>
+                      {order.paymentInfo &&
+                      order.paymentInfo.status === "succeeded"
+                        ? "PAID"
+                        : "NOT PAID"}
+                    </span>
                   </div>
-                  <Typography>Order Status</Typography>
-                  <div className="orderDetailsContainerBox">
-                    <div>
-                      <p
-                        className={
-                          order.orderStatus && order.orderStatus === "Delivered"
-                            ? "greenColor"
-                            : "redColor"
-                        }>
-                        {order.orderStatus && order.orderStatus}
-                      </p>
-                    </div>
+                  <div>
+                    <p>Amount: </p>
+                    <span>{order.totalPrice && order.totalPrice}</span>
+                  </div>
+                  <div>
+                    <Typography>Order Status</Typography>
+                    <span
+                      className={
+                        order.orderStatus && order.orderStatus === "Delivered"
+                          ? "greenColor"
+                          : "redColor"
+                      }>
+                      {order.orderStatus && order.orderStatus}
+                    </span>
                   </div>
                 </div>
                 <div className="confirmCartItems">
-                  <Typography>Your Cart Items:</Typography>
+                  <Typography style={{ fontSize: "1.8rem" }}>
+                    Your Cart Items:
+                  </Typography>
                   <div className="confirmCartItemsContainer">
                     {order.orderItems &&
                       order.orderItems.map((item) => (
@@ -124,6 +125,7 @@ const ProcessOrder = () => {
                           <Link to={`/product/${item.product}`}>
                             {item.name}
                           </Link>{" "}
+                          {console.log(item)}
                           <span>
                             {item.quantity} X ₹{item.price} ={" "}
                             <b>₹{item.price * item.quantity}</b>

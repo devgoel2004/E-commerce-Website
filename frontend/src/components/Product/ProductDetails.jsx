@@ -37,17 +37,17 @@ const ProductDetails = () => {
     (state) => state.newReview
   );
   const [rating, setRating] = useState(0);
+  const productDetail = product.product;
   const options = {
     edit: false,
     color: "rgba(20,20,20,0.1)",
     size: window.innerWidth === 600 ? "small" : "",
-    value: product.ratings,
+    value: productDetail.ratings,
     readOnly: true,
   };
   const [quantity, setQuantity] = useState(1);
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState("");
-  const productDetail = product.product;
   const submitReviewToggle = () => {
     setOpen(!open);
   };
@@ -79,6 +79,7 @@ const ProductDetails = () => {
     dispatch(addItemToCart(id, quantity));
     alert.success("Item Added To Cart");
   };
+  console.log(product);
   useEffect(() => {
     if (error) {
       alert.error(error);

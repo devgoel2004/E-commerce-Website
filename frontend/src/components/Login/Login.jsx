@@ -75,6 +75,7 @@ const Login = () => {
   const redirect = window.location.search
     ? window.location.search.split("=")[1]
     : "/account";
+  console.log("/", redirect);
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -82,7 +83,7 @@ const Login = () => {
     }
     if (isAuthenticated) {
       alert.success("Login Done!");
-      navigate(`/account`);
+      navigate(`/${redirect}`);
     }
   }, [dispatch, error, alert, isAuthenticated, redirect]);
   return (

@@ -30,16 +30,14 @@ const UpdateProduct = () => {
     error: updateError,
     isUpdated,
   } = useSelector((state) => state.updateProduct);
-
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [Stock, setStock] = useState("");
+  const [name, setName] = useState(product.product.name);
+  const [price, setPrice] = useState(product.product.price);
+  const [description, setDescription] = useState(product.product.description);
+  const [category, setCategory] = useState(product.product.category);
+  const [Stock, setStock] = useState(product.product.Stock);
   const [images, setImages] = useState([]);
-  const [oldImages, setOldImages] = useState([]);
+  const [oldImages, setOldImages] = useState(product.product.images);
   const [imagesPreview, setImagesPreview] = useState([]);
-
   const categories = [
     "Laptop",
     "Footwear",
@@ -50,7 +48,6 @@ const UpdateProduct = () => {
     "Phone",
     "Clothes",
   ];
-  console.log(product);
   useEffect(() => {
     if (product && product._id !== id) {
       dispatch(getProductDetails(id));
@@ -60,7 +57,7 @@ const UpdateProduct = () => {
       setPrice(product.price);
       setCategory(product.category);
       setStock(product.Stock);
-      setOldImages(product.images);
+      setOldImages(product.product.images);
     }
     if (error) {
       alert.error(error);
@@ -81,6 +78,7 @@ const UpdateProduct = () => {
   const updateProductSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
+    myForm.append("hello", "world");
     myForm.set("name", name);
     myForm.set("price", price);
     myForm.set("description", description);
@@ -89,9 +87,10 @@ const UpdateProduct = () => {
     images.forEach((image) => {
       myForm.append("images", image);
     });
-    console.log(myForm);
     dispatch(updateProduct(id, myForm));
   };
+  let formData = new FormData();
+  formData.set("Hello", "World");
   const updateProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
     setImages([]);

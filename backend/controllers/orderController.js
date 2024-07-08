@@ -35,6 +35,7 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
     "user",
     "name email"
   );
+  console.log(order);
   if (!order) {
     return next(new ErrorHandler("Order not found with this Id", 404));
   }
@@ -67,24 +68,32 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
 //Update order status -- Admin
 exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
   const order = await Order.findById(req.params.id);
+  if (!order) {
+    return next(new ErrorHandler("Order not found with this id", 404));
+  }
   if (order.orderStatus === "Delivered") {
     return next(new ErrorHandler("You have delivered this order", 400));
   }
-  order.orderItems.forEach(async (order) => {
-    await updateStock(order.product, order.quantity);
-  });
+  if (req.body.status === "Shipped") {
+    order.orderItems.forEach(async (order) => {
+      await updateStock(order.product, order.quantity);
+    });
+  }
+  order.orderStatus = req.body.status;
   if (req.body.status === "Delivered") {
     order.deliveredAt = Date.now();
   }
-  await order.save();
+  await Order.findByIdAndUpdate(req.params.id, order);
+
   res.status(200).json({
     success: true,
+    order,
   });
 });
 async function updateStock(id, quantity) {
   const product = await Product.findById(id);
   product.Stock -= quantity;
-  await product.save();
+  await Product.findByIdAndUpdate(id, product);
 }
 
 //Delete Order -- Admin

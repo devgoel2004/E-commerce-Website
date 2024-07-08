@@ -170,6 +170,7 @@ export const deleteProduct = (id) => async (dispatch) => {
 };
 
 export const updateProduct = (id, productData) => async (dispatch) => {
+  console.log(productData);
   try {
     dispatch({
       type: UPDATE_PRODUCT_REQUEST,
