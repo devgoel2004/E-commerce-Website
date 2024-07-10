@@ -66,7 +66,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   }
   const resetToken = user.getResetPasswordToken();
   await user.save({ validateBeforeSave: false });
-  const resetPasswordUrl = `http://localhost:3000/password/reset/${resetToken}`;
+  const resetPasswordUrl = `https://devgoel2004.github.io/shopfusion/password/reset/${resetToken}`;
   const message = `Your password reset token is: -\n\n ${resetPasswordUrl} \n\n If you have not requested this email kindly ignore it`;
   try {
     await sendEmail({

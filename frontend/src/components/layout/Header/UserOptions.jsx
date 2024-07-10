@@ -20,19 +20,19 @@ const UserOptions = ({ user }) => {
   const [open, setOpen] = useState(true);
   const dashboard = () => {
     if (user.role === "admin") {
-      navigate("/admin/dashboard");
+      navigate("/shopfusion/admin/dashboard");
     } else {
-      navigate("/dashboard");
+      navigate("/shopfusion/dashboard");
     }
   };
   const orders = () => {
-    navigate("/orders");
+    navigate("/shopfusion/orders");
   };
   const account = () => {
-    navigate("/account");
+    navigate("/shopfusion/account");
   };
   const cart = () => {
-    navigate("/cart");
+    navigate("/shopfusion/cart");
   };
   const logoutUser = () => {
     dispatch(logout());

@@ -8,7 +8,7 @@ const Error = () => {
         <h1>
           <span id="notfound">404</span> Not Found
         </h1>
-        <Link to="/">
+        <Link to="/shopfusion">
           <button id="button">Home</button>
         </Link>
       </div>

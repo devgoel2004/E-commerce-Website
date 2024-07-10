@@ -7,9 +7,9 @@ const Search = () => {
   const searchSubmitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
-      navigate(`/products/${keyword}`);
+      navigate(`/shopfusion/products/${keyword}`);
     } else {
-      navigate("/products");
+      navigate("/shopfusion/products");
     }
   };
   return (

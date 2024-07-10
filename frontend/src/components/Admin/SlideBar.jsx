@@ -14,7 +14,7 @@ import RateReviewIcon from "@material-ui/icons/RateReview";
 const SlideBar = () => {
   return (
     <div className="sidebar">
-      <Link to="/admin/dashboard">
+      <Link to="/shopfusion/admin/dashboard">
         <p>
           <DashboardIcon /> Dashboard
         </p>
@@ -24,31 +24,31 @@ const SlideBar = () => {
           defaultCollapseIcon={<ExpandMoreIcon />}
           defaultExpandIcon={<ImportExportIcon />}>
           <TreeItem nodeId="1" label="Products">
-            <Link to="/admin/products">
+            <Link to="/shopfusion/admin/products">
               <TreeItem
                 nodeId="2"
                 label="All"
                 icon={<PostAddIcon />}></TreeItem>
             </Link>
-            <Link to="/admin/product">
+            <Link to="/shopfusion/admin/product">
               <TreeItem nodeId="3" label="Create" icon={<AddIcon />}></TreeItem>
             </Link>
           </TreeItem>
         </TreeView>
       </Link>
-      <Link to="/admin/orders">
+      <Link to="/shopfusion/admin/orders">
         <p>
           <ListAltIcon />
           Orders
         </p>
       </Link>
-      <Link to="/admin/users">
+      <Link to="/shopfusion/admin/users">
         <p>
           <PeopleIcon />
           Users
         </p>
       </Link>
-      <Link to="/admin/reviews">
+      <Link to="/shopfusion/admin/reviews">
         <p>
           <RateReviewIcon />
           Reviews

@@ -122,7 +122,7 @@ const ProcessOrder = () => {
                       order.orderItems.map((item) => (
                         <div key={item.product}>
                           <img src={item.image} alt="Product" />
-                          <Link to={`/product/${item.product}`}>
+                          <Link to={`/shopfusion/product/${item.product}`}>
                             {item.name}
                           </Link>{" "}
                           {console.log(item)}

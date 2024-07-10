@@ -34,11 +34,11 @@ const Shipping = () => {
     dispatch(
       saveShippingInfo({ address, city, state, country, pinCode, phoneNo })
     );
-    navigate("/order/confirm");
+    navigate("/shopfusion/order/confirm");
   };
   useEffect(() => {
     if (isAuthenticated === false) {
-      navigate("/login");
+      navigate("/shopfusion/login");
     }
   }, [isAuthenticated]);
   return (

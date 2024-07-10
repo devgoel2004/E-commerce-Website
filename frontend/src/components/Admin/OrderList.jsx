@@ -69,7 +69,7 @@ const OrderList = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/admin/order/${params.id}`}>
+            <Link to={`/shopfusion/admin/order/${params.id}`}>
               <EditIcon />
             </Link>
             <Button onClick={() => deleteOrderHandler(params.id)}>

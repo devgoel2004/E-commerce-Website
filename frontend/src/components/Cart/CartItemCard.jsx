@@ -6,7 +6,7 @@ const CartItemCard = ({ item, deleteCartItem }) => {
     <div className="CartItemCard">
       <img src={item.image} alt="altImage" />
       <div className="">
-        <Link to={`/product/${item.product}`}>{item.name}</Link>
+        <Link to={`/shopfusion/product/${item.product}`}>{item.name}</Link>
         <span>{`Price:  ₹${item.price}`}</span>
         <p onClick={() => deleteCartItem(item.product)}>Remove</p>
       </div>

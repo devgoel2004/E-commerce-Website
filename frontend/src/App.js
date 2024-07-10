@@ -49,34 +49,43 @@ function App() {
         {isAuthenticated && <UserOptions user={user} />}
         <Routes>
           <Route
-            path="/me/update"
+            path="/shopfusion/me/update"
             element={
               <ProtectedRoute>
                 <UpdateProfile />
               </ProtectedRoute>
             }
           />
-          <Route path="/password/update" element={<UpdatePassword />} />
-          <Route path="/password/forgot" element={<ForgotPassword />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/products" element={<Product />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/products/:keyword" element={<Product />} />
-          <Route path="/login" element={<Login />} />
           <Route
-            path="/account"
+            path="/shopfusion/password/update"
+            element={<UpdatePassword />}
+          />
+          <Route
+            path="/shopfusion/password/forgot"
+            element={<ForgotPassword />}
+          />
+          <Route path="/shopfusion/" element={<Home />} />
+          <Route path="/shopfusion/product/:id" element={<ProductDetails />} />
+          <Route path="/shopfusion/products" element={<Product />} />
+          <Route path="/shopfusion/search" element={<Search />} />
+          <Route path="/shopfusion/products/:keyword" element={<Product />} />
+          <Route path="/shopfusion/login" element={<Login />} />
+          <Route
+            path="/shopfusion/account"
             element={
               <ProtectedRoute>
                 <Profile />
               </ProtectedRoute>
             }
           />
-          <Route path="/password/reset/:token" element={<ResetPassword />} />
-          <Route path="*" element={<Error />} />
-          <Route path="/cart" element={<Cart />} />
           <Route
-            path="/shipping"
+            path="/shopfusion/password/reset/:token"
+            element={<ResetPassword />}
+          />
+          <Route path="/shopfusion/*" element={<Error />} />
+          <Route path="/shopfusion/cart" element={<Cart />} />
+          <Route
+            path="/shopfusion/shipping"
             element={
               <ProtectedRoute>
                 <Shipping />
@@ -84,7 +93,7 @@ function App() {
             }
           />
           <Route
-            path="/order/confirm"
+            path="/shopfusion/order/confirm"
             element={
               <ProtectedRoute>
                 <ConfirmOrder />
@@ -92,7 +101,7 @@ function App() {
             }
           />
           <Route
-            path="/process/payment"
+            path="/shopfusion/process/payment"
             element={
               <ProtectedRoute>
                 <PaymentWrapper />
@@ -100,7 +109,7 @@ function App() {
             }
           />
           <Route
-            path="/payment/success"
+            path="/shopfusion/payment/success"
             element={
               <ProtectedRoute>
                 <OrderSuccess />
@@ -108,7 +117,7 @@ function App() {
             }
           />
           <Route
-            path="/orders"
+            path="/shopfusion/orders"
             element={
               <ProtectedRoute>
                 <MyOrders />
@@ -116,7 +125,7 @@ function App() {
             }
           />
           <Route
-            path="/order/:id"
+            path="/shopfusion/order/:id"
             element={
               <ProtectedRoute>
                 <OrderDetails />
@@ -124,7 +133,7 @@ function App() {
             }
           />
           <Route
-            path="/admin/dashboard"
+            path="/shopfusion/admin/dashboard"
             element={
               <ProtectedRoute isAdmin={true}>
                 <DashBoard />
@@ -132,7 +141,7 @@ function App() {
             }
           />
           <Route
-            path="/admin/products"
+            path="/shopfusion/admin/products"
             element={
               <ProtectedRoute isAdmin={true}>
                 <ProductList />
@@ -141,7 +150,7 @@ function App() {
           />
           <Route
             exact
-            path="/admin/product"
+            path="/shopfusion/admin/product"
             element={
               <ProtectedRoute isAdmin={true}>
                 <NewProduct />
@@ -150,7 +159,7 @@ function App() {
           />
           <Route
             exact
-            path="/admin/product/:id"
+            path="/shopfusion/admin/product/:id"
             element={
               <ProtectedRoute isAdmin={true}>
                 <UpdateProduct />
@@ -159,7 +168,7 @@ function App() {
           />
           <Route
             exact
-            path="/admin/orders"
+            path="/shopfusion/admin/orders"
             element={
               <ProtectedRoute isAdmin={true}>
                 <OrderList />
@@ -167,7 +176,7 @@ function App() {
             }
           />
           <Route
-            path="/admin/order/:id"
+            path="/shopfusion/admin/order/:id"
             element={
               <ProtectedRoute>
                 <ProcessOrder />

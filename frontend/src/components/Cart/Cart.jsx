@@ -27,7 +27,7 @@ const Cart = () => {
     dispatch(removeItemFromCart(id));
   };
   const checkOutHandler = () => {
-    navigate("/login?redirect=shipping");
+    navigate("/shopfusion/login?redirect=shipping");
   };
   return (
     <>
@@ -38,7 +38,7 @@ const Cart = () => {
           <div className="emptyCart">
             <RemoveShoppingCartIcon />
             <Typography>No Product In Your Cart</Typography>
-            <Link to="/products">View Products</Link>
+            <Link to="/shopfusion/products">View Products</Link>
           </div>
         </>
       ) : (

@@ -11,7 +11,7 @@ const ProductCard = ({ product }) => {
   };
   return (
     <>
-      <Link className="productCard" to={`/product/${product._id}`}>
+      <Link className="productCard" to={`/shopfusion/product/${product._id}`}>
         <img src={product.images[0].url} alt={product.name} />
         <p>{product.name}</p>
         <div>

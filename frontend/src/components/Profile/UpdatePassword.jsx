@@ -33,7 +33,7 @@ const UpdatePassword = () => {
     }
     if (isUpdated) {
       alert.success("Password Updated Successfully");
-      navigate("/account");
+      navigate("/shopfusion/account");
       dispatch({
         type: UPDATE_PASSWORD_RESET,
       });
@@ -82,7 +82,7 @@ const UpdatePassword = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
-            <input type="Submit" value="Change" className="updatePasswordBtn" />
+            <input type="submit" value="Change" className="updatePasswordBtn" />
           </form>
         </div>
       </div>

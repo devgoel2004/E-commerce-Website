@@ -4,7 +4,7 @@ import { DataGrid } from "@material-ui/data-grid";
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, myOrders } from "../../actions/orderAction";
 import Loader from "../Loader/Loader";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Typography } from "@material-ui/core";
 import MetaData from "../layout/Header/MetaData";
@@ -40,7 +40,7 @@ const MyOrders = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <Link to={`/order/${params.getValue(params.id, "id")}`}>
+          <Link to={`/shopfusion/order/${params.getValue(params.id, "id")}`}>
             <LaunchIcon />
           </Link>
         );

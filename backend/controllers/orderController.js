@@ -35,7 +35,6 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
     "user",
     "name email"
   );
-  console.log(order);
   if (!order) {
     return next(new ErrorHandler("Order not found with this Id", 404));
   }

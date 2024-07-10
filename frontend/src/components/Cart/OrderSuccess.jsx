@@ -8,7 +8,7 @@ const orderSuccess = () => {
     <div className="orderSuccess">
       <CheckCircleIcon />
       <Typography>Your Order has been placed successfully</Typography>
-      <Link to="/orders">View Orders</Link>
+      <Link to="/shopfusion/orders">View Orders</Link>
     </div>
   );
 };

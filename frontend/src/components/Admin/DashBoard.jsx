@@ -90,15 +90,15 @@ const DashBoard = () => {
                   </p>
                 </div>
                 <div className="dashboardSummaryBox2">
-                  <Link to="/admin/products">
+                  <Link to="/shopfusion/admin/products">
                     <p>Product</p>
                     <p>{products && products.length}</p>
                   </Link>
-                  <Link to="/admin/orders">
+                  <Link to="/shopfusion/admin/orders">
                     <p>Orders</p>
                     <p>4</p>
                   </Link>
-                  <Link to="/admin/users">
+                  <Link to="/shopfusion/admin/users">
                     <p>Users</p>
                     <p>2</p>
                   </Link>

@@ -9,7 +9,7 @@ const Profile = () => {
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
   useEffect(() => {
     if (isAuthenticated === false) {
-      navigate("/login");
+      navigate("/shopfusion/login");
     }
   }, [isAuthenticated]);
   return (
@@ -26,7 +26,7 @@ const Profile = () => {
                 src={user.avatar ? user.avatar.url : "./Profile.png"}
                 alt={user.name}
               />
-              <Link to="/me/update">Edit Profile</Link>
+              <Link to="/shopfusion/me/update">Edit Profile</Link>
             </div>
             <div>
               <div>
@@ -42,8 +42,8 @@ const Profile = () => {
                 <p>{String(user.createdAt).substr(0, 10)}</p>
               </div>
               <div>
-                <Link to="/orders">My Orders</Link>
-                <Link to="/password/update">Change Password</Link>
+                <Link to="/shopfusion/orders">My Orders</Link>
+                <Link to="/shopfusion/password/update">Change Password</Link>
               </div>
             </div>
           </div>

@@ -81,7 +81,7 @@ const ProductList = () => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/product/${params.id}`}>
+            <Link to={`/shopfusion/admin/product/${params.id}`}>
               <EditIcon />
             </Link>
             <Button onClick={() => deleteProductHandler(params.id, "id")}>

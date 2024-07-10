@@ -42,7 +42,7 @@ const Header = ({ isAuthenticated }) => {
             onClick={toggleActiveClass}
             className="fa-solid fa-bars"
             id="bar-icon"></i>
-          <Link href="/">
+          <Link href="/shopfusion/">
             <img src={image} alt="Shop" />
             <b>Shop</b>
             <span>Fusion</span>
@@ -83,7 +83,7 @@ const Header = ({ isAuthenticated }) => {
       <div className={isActive ? `Header-section-2` : `Header-section-3`}>
         <div className="Categories">
           <span style={{ fontSize: "large" }}>
-            <Link to="/products">
+            <Link to="/shopfusion/products">
               <i class="fa-solid fa-list" style={{ padding: "4px" }}></i>
               Products
             </Link>
@@ -99,7 +99,10 @@ const Header = ({ isAuthenticated }) => {
         </div>
         <div className="Categories">
           <span>
-            <Link to={isAuthenticated ? "/account" : "/login"}>
+            <Link
+              to={
+                isAuthenticated ? "/shopfusion/account" : "/shopfusion/login"
+              }>
               <i className="fa-solid fa-user"></i>
               {isAuthenticated ? " Account" : " Sign In"}
             </Link>
@@ -108,7 +111,7 @@ const Header = ({ isAuthenticated }) => {
             <i className="fa-solid fa-bag-shopping"></i> Favourite
           </span>
           <span>
-            <Link to="/cart">
+            <Link to="/shopfusion/cart">
               <i className="fa-solid fa-bag-shopping"></i> Cart
             </Link>
           </span>
