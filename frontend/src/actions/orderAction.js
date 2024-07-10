@@ -35,7 +35,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       withCredentials: true,
     };
     const { data } = await axios.post(
-      "http://localhost:4000/api/v1/order/new",
+      "https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/order/new",
       order,
       config
     );
@@ -56,7 +56,7 @@ export const myOrders = () => async (dispatch) => {
     dispatch({
       type: MY_ORDER_REQUEST,
     });
-    const { data } = await axios.get("http://localhost:4000/api/v1/orders/me", {
+    const { data } = await axios.get("https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/orders/me", {
       withCredentials: true,
     });
 
@@ -76,10 +76,9 @@ export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST });
     const { data } = await axios.get(
-      `http://localhost:4000/api/v1/order/${id}`,
+      `https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/order/${id}`,
       { withCredentials: true }
     );
-    console.log(data);
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data.order });
   } catch (error) {
     dispatch({
@@ -95,7 +94,7 @@ export const getAllOrders = () => async (dispatch) => {
       type: ALL_ORDER_REQUEST,
     });
     const { data } = await axios.get(
-      "http://localhost:4000/api/v1/admin/orders",
+      "https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/admin/orders",
       {
         withCredentials: true,
       }
@@ -124,7 +123,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.put(
-      `http://localhost:4000/api/v1/admin/order/${id}`,
+      `https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/admin/order/${id}`,
       order,
       config
     );
@@ -152,7 +151,7 @@ export const deleteOrder = (id) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.delete(
-      `http://localhost:4000/api/v1/admin/order/${id}`,
+      `https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/admin/order/${id}`,
       config
     );
     dispatch({

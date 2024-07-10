@@ -36,7 +36,7 @@ export const login = (email, password) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.post(
-      "http://localhost:4000/api/v1/login",
+      "https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/login",
       {
         email,
         password,
@@ -65,7 +65,7 @@ export const register = (userData) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.post(
-      "http://localhost:4000/api/v1/register",
+      "https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/register",
       userData,
       config
     );
@@ -86,7 +86,7 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: LOAD_USER_REQUEST,
     });
-    const { data } = await axios.get("http://localhost:4000/api/v1/me", {
+    const { data } = await axios.get("https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/me", {
       withCredentials: true,
     });
     dispatch({
@@ -103,7 +103,7 @@ export const loadUser = () => async (dispatch) => {
 //Logout User
 export const logout = () => async (dispatch) => {
   try {
-    await axios.get("http://localhost:4000/api/v1/logout", {
+    await axios.get("https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/logout", {
       withCredentials: true,
     });
     dispatch({
@@ -127,7 +127,7 @@ export const updateProfile = (userData) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.put(
-      `http://localhost:4000/api/v1/me/update`,
+      `https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/me/update`,
       userData,
       config
     );
@@ -153,7 +153,7 @@ export const updatePassword = (password) => async (dispatch) => {
       withCredentials: true,
     };
     const data = await axios.put(
-      "http://localhost:4000/api/v1/password/update",
+      "https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/password/update",
       password,
       config
     );
@@ -181,7 +181,7 @@ export const forgotPasswordAction = (email) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.post(
-      "http://localhost:4000/api/v1/password/reset",
+      "https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/password/reset",
       email,
       config
     );
@@ -209,7 +209,7 @@ export const resetPasswordAction = (token, password) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.post(
-      `http://localhost:4000/api/v1/password/reset/${token}`,
+      `https://shopfusion-jivc.onrender.com/api/v1/productsapi/v1/password/reset/${token}`,
       password,
       config
     );

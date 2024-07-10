@@ -24,7 +24,7 @@ import {
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_RESET,
 } from "../constants/productConstants";
-import { useEffect } from "react";
+
 export const getProduct =
   (keyword = "", currentPage = 1, price = [0, 100000], category, ratings = 0) =>
   async (dispatch) => {
@@ -32,9 +32,9 @@ export const getProduct =
       dispatch({
         type: ALL_PRODUCT_REQUEST,
       });
-      let link = `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+      let link = `https://shopfusion-jivc.onrender.com/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
       if (category) {
-        link = `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+        link = `https://shopfusion-jivc.onrender.com/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
       }
       const { data } = await axios.get(link);
       dispatch({
@@ -52,7 +52,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
     const { data } = await axios.get(
-      `http://localhost:4000/api/v1/product/${id}`
+      `https://shopfusion-jivc.onrender.com/api/v1/product/${id}`
     );
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
@@ -78,7 +78,7 @@ export const newReview = (reviewData) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.put(
-      "http://localhost:4000/api/v1/review",
+      "https://shopfusion-jivc.onrender.com/api/v1/review",
       reviewData,
       config
     );
@@ -99,7 +99,7 @@ export const getAdminProduct = () => async (dispatch) => {
       type: ADMIN_PRODUCT_REQUEST,
     });
     const { data } = await axios.get(
-      "http://localhost:4000/api/v1/admin/products",
+      "https://shopfusion-jivc.onrender.com/api/v1/admin/products",
       {
         withCredentials: true,
       }
@@ -127,7 +127,7 @@ export const createProduct = (productData) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.post(
-      "http://localhost:4000/api/v1/product/new",
+      "https://shopfusion-jivc.onrender.com/api/v1/product/new",
       productData,
       config
     );
@@ -154,7 +154,7 @@ export const deleteProduct = (id) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.delete(
-      `http://localhost:4000/api/v1/product/${id}`,
+      `https://shopfusion-jivc.onrender.com/api/v1/product/${id}`,
       config
     );
     dispatch({
@@ -170,7 +170,6 @@ export const deleteProduct = (id) => async (dispatch) => {
 };
 
 export const updateProduct = (id, productData) => async (dispatch) => {
-  console.log(productData);
   try {
     dispatch({
       type: UPDATE_PRODUCT_REQUEST,
@@ -182,7 +181,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
       withCredentials: true,
     };
     const { data } = await axios.put(
-      `http://localhost:4000/api/v1/product/${id}`,
+      `https://shopfusion-jivc.onrender.com/api/v1/product/${id}`,
       productData,
       config
     );

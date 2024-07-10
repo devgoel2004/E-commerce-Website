@@ -8,7 +8,7 @@ import axios from "axios";
 export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
   try {
     const { data } = await axios.get(
-      `http://localhost:4000/api/v1/product/${id}`
+      `https://shopfusion-jivc.onrender.com/api/v1/product/${id}`
     );
     dispatch({
       type: ADD_TO_CART,
@@ -25,8 +25,7 @@ export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
       "cartItems",
       JSON.stringify(getState().cart.cartItems)
     );
-  } catch (error) {
-  }
+  } catch (error) {}
 };
 //remove from cart
 export const removeItemFromCart = (id) => async (dispatch, getState) => {

@@ -78,7 +78,6 @@ const UpdateProduct = () => {
   const updateProductSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
-    myForm.append("hello", "world");
     myForm.set("name", name);
     myForm.set("price", price);
     myForm.set("description", description);
@@ -90,7 +89,6 @@ const UpdateProduct = () => {
     dispatch(updateProduct(id, myForm));
   };
   let formData = new FormData();
-  formData.set("Hello", "World");
   const updateProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
     setImages([]);
