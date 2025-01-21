@@ -33,6 +33,9 @@ import NewProduct from "./components/Admin/NewProduct";
 import UpdateProduct from "./components/Admin/UpdateProduct";
 import OrderList from "./components/Admin/OrderList";
 import ProcessOrder from "./components/Admin/ProcessOrder";
+import ProductReviews from "./components/Admin/ProductReviews";
+import UpdateUser from "./components/Admin/UpdateUser";
+import UserList from "./components/Admin/UserList";
 function App() {
   const alert = useAlert();
   const { isAuthenticated, user, error } = useSelector((state) => state.user);
@@ -116,6 +119,23 @@ function App() {
               </ProtectedRoute>
             }
           />
+          {/* Admin Routes */}
+          <Route
+            path="/admin/reviews"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProductReviews />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/user/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UpdateUser />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/shopfusion/orders"
             element={
@@ -137,6 +157,14 @@ function App() {
             element={
               <ProtectedRoute isAdmin={true}>
                 <DashBoard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/shopfusion/admin/users"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UserList></UserList>
               </ProtectedRoute>
             }
           />

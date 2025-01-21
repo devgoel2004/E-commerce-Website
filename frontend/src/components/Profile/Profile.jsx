@@ -4,11 +4,12 @@ import { useNavigate, Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import { useSelector } from "react-redux";
 import "./Profile.css";
+
 const Profile = () => {
   const navigate = useNavigate();
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
   useEffect(() => {
-    if (isAuthenticated === false) {
+    if (!isAuthenticated) {
       navigate("/shopfusion/login");
     }
   }, [isAuthenticated]);
@@ -18,28 +19,38 @@ const Profile = () => {
         <Loader />
       ) : (
         <>
-          <MetaData title={`${user.name}'s Profile`} />
+          <MetaData title={`${user && user.name}'s Profile`} />
           <div className="profileContainer">
             <div className="">
               <h1>My Profile</h1>
               <img
-                src={user.avatar ? user.avatar.url : "./Profile.png"}
-                alt={user.name}
+                src={
+                  user && user.avatar
+                    ? user && user.avatar.url
+                    : "./Profile.png"
+                }
+                alt={user && user.name}
               />
               <Link to="/shopfusion/me/update">Edit Profile</Link>
             </div>
             <div>
               <div>
                 <h4>Full Name</h4>
-                <p>{user.name}</p>
+                <p>{user && user.name}</p>
               </div>
               <div>
                 <h4>Email</h4>
-                <p>{user.email}</p>
+                <p>{user && user.email}</p>
               </div>
               <div>
                 <h4>Joined On</h4>
-                <p>{String(user.createdAt).substr(0, 10)}</p>
+                <p>{String(user && user.createdAt).substr(0, 10)}</p>
+              </div>
+              <div>
+                <h4>Role</h4>
+                <p style={{ textTransform: "capitalize" }}>
+                  {user && user.role}
+                </p>
               </div>
               <div>
                 <Link to="/shopfusion/orders">My Orders</Link>

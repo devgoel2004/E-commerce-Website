@@ -13,6 +13,7 @@ app.use(
     extended: true,
   })
 );
+app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload());
 const errorMiddleware = require("./middleware/error");
 const product = require("./routes/productRoute");

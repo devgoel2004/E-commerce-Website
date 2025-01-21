@@ -5,12 +5,10 @@ import { Link } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
-import Profile from "../../images/Profile.png";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
-
 const Login = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -29,11 +27,16 @@ const Login = () => {
     password: "",
   });
   const { name, email, password } = user;
-  const [avatar, setAvatar] = useState(Profile);
-  const [avatarPreview, setAvatarPreview] = useState(Profile);
+  const [avatar, setAvatar] = useState(
+    "https://media-hosting.imagekit.io//d30bc5fe1a5d49c2/Profile.png?Expires=1831452688&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=F0ecf8kvw6nMPABvHg52Honu60IzaA7bL~qy3xEy2mqT8EJ~vxJqGPgNgs6gFF62~uvxCtUkB28XWkFSO~Xl7TeorVkGSptW7wfbctRZkRjSNsgs0Z-1K46o0wqNNg4U3rxxIP9vTcwIBAGHYcY6vgprsTF~IF4a17ftXlp3h3dNU8jg-lUlm9I7ZurBP0j9K74jniAJjjhcLLNwDM-iRJFZfcqciD3To4oZ38GGom6M5ukYnUPP~JoHp6bQIeJOM-AGaIPjq9bFcoKJjinyIA81aQnLK1Fz3S2WtY-Gd46fJtzZpt83rfHEmehISeDTHjHRv215j~m3ppO-CYxt1w__"
+  );
+  const [avatarPreview, setAvatarPreview] = useState(
+    "https://media-hosting.imagekit.io//d30bc5fe1a5d49c2/Profile.png?Expires=1831452688&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=F0ecf8kvw6nMPABvHg52Honu60IzaA7bL~qy3xEy2mqT8EJ~vxJqGPgNgs6gFF62~uvxCtUkB28XWkFSO~Xl7TeorVkGSptW7wfbctRZkRjSNsgs0Z-1K46o0wqNNg4U3rxxIP9vTcwIBAGHYcY6vgprsTF~IF4a17ftXlp3h3dNU8jg-lUlm9I7ZurBP0j9K74jniAJjjhcLLNwDM-iRJFZfcqciD3To4oZ38GGom6M5ukYnUPP~JoHp6bQIeJOM-AGaIPjq9bFcoKJjinyIA81aQnLK1Fz3S2WtY-Gd46fJtzZpt83rfHEmehISeDTHjHRv215j~m3ppO-CYxt1w__"
+  );
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
+    console.log(dispatch(login(loginEmail, loginPassword)));
   };
   const switchTabs = (e, tab) => {
     if (tab === "login") {
@@ -74,7 +77,7 @@ const Login = () => {
   };
   const redirect = window.location.search
     ? window.location.search.split("=")[1]
-    : "/account";
+    : "account";
 
   useEffect(() => {
     if (error) {

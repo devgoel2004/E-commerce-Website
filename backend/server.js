@@ -17,7 +17,7 @@ cloudinary.config({
 });
 const port = process.env.PORT;
 const server = app.listen(port, () => {
-  console.log("Server is working");
+  console.log("Server is working", port);
 });
 process.on("unhandledRejection", (err) => {
   console.log(`Error: ${err.message}`);

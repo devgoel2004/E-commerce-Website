@@ -21,9 +21,10 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const resetPasswordSubmit = (e) => {
     e.preventDefault();
-    const myForm = new FormData();
-    myForm.set("password", password);
-    myForm.set("confirmPassword", confirmPassword);
+    const myForm = {
+      password,
+      confirmPassword,
+    };
     dispatch(resetPasswordAction(token, myForm));
   };
   useEffect(() => {
@@ -72,7 +73,11 @@ const ResetPassword = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-                <input type="submit" value="Confirm" />
+                <input
+                  className="confirmSetPassword"
+                  type="submit"
+                  value="Confirm"
+                />
               </form>
             </div>
           </div>

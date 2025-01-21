@@ -1,5 +1,6 @@
 const nodeMailer = require("nodemailer");
 const sendEmail = async (options) => {
+  //Transporter is responsible to connect to the email server
   const transporter = nodeMailer.createTransport({
     service: process.env.APP_HOST,
     auth: {
@@ -7,6 +8,8 @@ const sendEmail = async (options) => {
       pass: process.env.APP_PASSWORD,
     },
   });
+
+  //These are all the mail options that need to be send.
   const mailOptions = {
     from: process.env.APP_EMAIL,
     to: options.email,

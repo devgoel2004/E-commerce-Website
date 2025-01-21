@@ -8,7 +8,7 @@ import axios from "axios";
 export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
   try {
     const { data } = await axios.get(
-      `https://shopfusion-jivc.onrender.com/api/v1/product/${id}`
+      `http://localhost:8000/api/v1/product/${id}`
     );
     dispatch({
       type: ADD_TO_CART,

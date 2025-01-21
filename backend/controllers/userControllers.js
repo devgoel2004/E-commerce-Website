@@ -5,7 +5,6 @@ const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const cloudinary = require("cloudinary");
-
 //Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
@@ -14,6 +13,10 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     crop: "scale",
   });
   const { name, email, password } = req.body;
+  const find = await User.findOne({ email: email });
+  if (find) {
+    return next(new ErrorHandler("User Exists", 401));
+  }
   const user = await User.create({
     name,
     email,
@@ -60,13 +63,12 @@ exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
 //Forgot password
 exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
-
   if (!user) {
-    return next(new ErrorHandler("User not found", 404));
+    return next(new ErrorHandler("User not found, kindly register", 404));
   }
   const resetToken = user.getResetPasswordToken();
   await user.save({ validateBeforeSave: false });
-  const resetPasswordUrl = `https://devgoel2004.github.io/shopfusion/password/reset/${resetToken}`;
+  const resetPasswordUrl = `http://localhost:3000/shopfusion/password/reset/${resetToken}`;
   const message = `Your password reset token is: -\n\n ${resetPasswordUrl} \n\n If you have not requested this email kindly ignore it`;
   try {
     await sendEmail({
@@ -104,7 +106,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
     );
   }
   if (req.body.password !== req.body.confirmPassword) {
-    return next(new ErrorHandler("password does not password", 400));
+    return next(new ErrorHandler("Password does not password", 400));
   }
   user.password = req.body.password;
   user.resetPasswordToken = undefined;
@@ -114,7 +116,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 });
 //get user details
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user._id);
   res.status(200).json({
     success: true,
     user,
@@ -122,7 +124,7 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
 });
 //update user password
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.findById(req.user.id).select("+password");
+  const user = await User.findById(req.user._id).select("+password");
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
   if (!isPasswordMatched) {
     return next(new ErrorHandler("old password does not match", 401));
@@ -140,7 +142,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
   };
-  if (req.body.avatar !== "") {
+  if (req.body.avatar) {
     const user = await User.findById(req.user.id);
     const imageId = user.avatar.public_id;
     await cloudinary.v2.uploader.destroy(imageId);

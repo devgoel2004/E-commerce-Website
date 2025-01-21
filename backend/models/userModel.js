@@ -40,6 +40,9 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  filename: String,
+  contentType: String,
+  imageBase64: String,
   resetPasswordToken: String,
   resetPasswordExpire: Date,
 });
@@ -62,11 +65,16 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 
 //Generate password reset token
 userSchema.methods.getResetPasswordToken = function () {
+  //generate random reset token
   const resetToken = crypto.randomBytes(20).toString("hex");
+
+  //hashing the token
   this.resetPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
+
+  //set token expiration
   this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
   return resetToken;
 };

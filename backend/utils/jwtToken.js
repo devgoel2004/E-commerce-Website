@@ -1,3 +1,4 @@
+//COOKIE_EXPIRE = 30
 const sendToken = (user, statusCode, res) => {
   const token = user.getJWTToken();
   const options = {
