@@ -124,7 +124,7 @@ export const deleteReviews = (reviewId, productId) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_REVIEW_REQUEST });
     const { data } = await axios.delete(
-      `/api/vi/reviews?id=${reviewId}&productId=${productId}`
+      `http://localhost:8000/api/vi/reviews?id=${reviewId}&productId=${productId}`
     );
     dispatch({
       type: DELETE_REVIEW_SUCCESS,
@@ -142,11 +142,15 @@ export const getAdminProduct = () => async (dispatch) => {
     dispatch({
       type: ADMIN_PRODUCT_REQUEST,
     });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
     const { data } = await axios.get(
       "http://localhost:8000/api/v1/admin/products",
-      {
-        withCredentials: true,
-      }
+      config
     );
     dispatch({
       type: ADMIN_PRODUCT_SUCCESS,

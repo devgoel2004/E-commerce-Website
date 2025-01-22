@@ -26,7 +26,7 @@ const ConfirmOrder = () => {
       totalPrice,
     };
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
-    navigate("/process/payment");
+    navigate("/shopfusion/process/payment");
   };
   return (
     <>
@@ -58,7 +58,9 @@ const ConfirmOrder = () => {
                 cartItems.map((item) => (
                   <div key={item.product}>
                     <img src={item.image} alt="Product" />
-                    <Link to={`/shopfusion/product/${item.product}`}>{item.name}</Link>
+                    <Link to={`/shopfusion/product/${item.product}`}>
+                      {item.name}
+                    </Link>
                     <span>
                       {item.quantity} * ₹{item.price} ={" "}
                       <b>₹{item.price * item.quantity}</b>
@@ -90,7 +92,9 @@ const ConfirmOrder = () => {
                 </p>
                 <span> ₹{totalPrice}</span>
               </div>
-              <button className="payment-process" onClick={processToPayment}>Proceed To Payment</button>
+              <button className="payment-process" onClick={processToPayment}>
+                Proceed To Payment
+              </button>
             </div>
           </div>
         </div>

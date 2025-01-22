@@ -7,7 +7,7 @@ import {
   getAdminProduct,
   deleteProduct,
 } from "../../actions/productActions";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Button } from "@mui/material";
 import MetaData from "../layout/Header/MetaData";
@@ -19,7 +19,6 @@ import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
   const alert = useAlert();
   const navigate = useNavigate();
   const { loading, isAuthenticated } = useSelector((state) => state.user);
@@ -29,6 +28,9 @@ const ProductList = () => {
   );
   const deleteProductHandler = (id) => {
     dispatch(deleteProduct(id));
+  };
+  const addNewProduct = () => {
+    navigate(`/shopfusion/admin/create-product`);
   };
   useEffect(() => {
     if (error) {
@@ -41,13 +43,25 @@ const ProductList = () => {
     }
     if (isDeleted) {
       alert.success("Product Delete Successfully");
-      navigate("/admin/dashboard");
+      navigate("/shopfusion/admin/dashboard");
       dispatch({
         type: DELETE_PRODUCT_RESET,
       });
     }
+    if (!isAuthenticated) {
+      alert.error("User not logged in");
+      navigate("/shopfusion/login");
+    }
     dispatch(getAdminProduct());
-  }, [error, alert, dispatch, navigate, deleteError, isDeleted]);
+  }, [
+    error,
+    alert,
+    dispatch,
+    navigate,
+    deleteError,
+    isDeleted,
+    isAuthenticated,
+  ]);
 
   const columns = [
     { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
@@ -125,6 +139,9 @@ const ProductList = () => {
                   autoHeight
                 />
               )}
+            </div>
+            <div>
+              <button onClick={addNewProduct}>Add New Product</button>
             </div>
           </div>
         </>

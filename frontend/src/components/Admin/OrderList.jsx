@@ -7,7 +7,7 @@ import {
   deleteOrder,
   getAllOrders,
 } from "../../actions/orderAction";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Button } from "@mui/material";
 import MetaData from "../layout/Header/MetaData";
@@ -35,13 +35,13 @@ const OrderList = () => {
     }
     if (isDeleted) {
       alert.success("Order Deleted Successfully");
-      navigate("/admin/orders");
+      navigate("/shopfusion/admin/orders");
       dispatch({
         type: DELETE_ORDER_RESET,
       });
     }
     dispatch(getAllOrders());
-  }, [dispatch, alert]);
+  }, [dispatch, alert, navigate, error, deleteError, isDeleted]);
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
     { field: "status", headerName: "Status", minWidth: 150, flex: 0.5 },

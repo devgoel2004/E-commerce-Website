@@ -69,12 +69,12 @@ const UpdateProduct = () => {
     }
     if (isUpdated) {
       alert.success("Product Updated Successfully");
-      navigate("/admin/dashboard");
+      navigate("/shopfusion/admin/dashboard");
       dispatch({
         type: UPDATE_PRODUCT_RESET,
       });
     }
-  }, [dispatch, alert, isUpdated, updateError, error]);
+  }, [dispatch, alert, isUpdated, updateError, error, navigate, id, product]);
   const updateProductSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
@@ -88,7 +88,6 @@ const UpdateProduct = () => {
     });
     dispatch(updateProduct(id, myForm));
   };
-  let formData = new FormData();
   const updateProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
     setImages([]);

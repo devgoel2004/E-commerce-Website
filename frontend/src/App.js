@@ -121,13 +121,20 @@ function App() {
           />
           {/* Admin Routes */}
           <Route
-            path="/admin/reviews"
+            path="/shopfusion/admin/reviews"
             element={
               <ProtectedRoute isAdmin={true}>
                 <ProductReviews />
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/shopfusion/admin/create-product/"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <NewProduct />
+              </ProtectedRoute>
+            }></Route>
           <Route
             path="/admin/user/:id"
             element={

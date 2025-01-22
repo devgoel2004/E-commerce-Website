@@ -12,11 +12,11 @@ exports.checkOut = catchAsyncErrors(async (req, res) => {
     receipt: "order_rcptid_l1",
   };
   const instance = new Razorpay({
-    key_id: process.env.RAZORPAY_API_KEY,
-    key_secret: process.env.RAZORPAY_API_SECRET,
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
   });
   const order = await instance.orders.create(options);
-  
+
   res.status(200).json({
     success: true,
     order,

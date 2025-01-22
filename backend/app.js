@@ -26,7 +26,7 @@ app.use("/api/v1", order);
 app.use("/api/v1", payment);
 app.get("/api/getKey", (req, res) => {
   res.status(200).json({
-    key: process.env.RAZORPAY_API_KEY,
+    key: process.env.RAZORPAY_KEY_ID,
   });
 });
 //middleware for errors

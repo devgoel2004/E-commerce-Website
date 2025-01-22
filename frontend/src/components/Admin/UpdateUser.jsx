@@ -8,7 +8,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import SlideBar from "./SlideBar";
 import { UPDATE_USER_RESET } from "../../constants/userConstants";
-// import { useNavigate } from "react-router-dom";
+
 import "./UpdateUser.css";
 import {
   getUserDetails,
@@ -22,7 +22,6 @@ const UpdateUser = () => {
   const navigate = useNavigate();
   const alert = useAlert();
   const { loading, error, user } = useSelector((state) => state.userDetails);
-  console.log(user);
   const {
     loading: updateLoading,
     error: updateError,
@@ -32,9 +31,7 @@ const UpdateUser = () => {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const { id } = useParams();
-  console.log(id);
   useEffect(() => {
-    // dispatch(getUserDetails(id));
     if (!user) {
       dispatch(getUserDetails(id));
     }
@@ -57,10 +54,10 @@ const UpdateUser = () => {
     }
     if (isUpdated) {
       alert.success("User Updated Successfully");
-      navigate("/admin/users");
+      navigate("/shopfusion/admin/users");
       dispatch({ type: UPDATE_USER_RESET });
     }
-  }, [dispatch, alert, error, isUpdated, updateError, user, id]);
+  }, [dispatch, alert, error, isUpdated, updateError, user, id, navigate]);
   const updateUserSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = {

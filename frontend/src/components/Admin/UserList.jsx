@@ -37,12 +37,12 @@ const UserList = () => {
 
     if (isDeleted) {
       alert.success("Deleted successfully");
-      navigate("/admin/users");
+      navigate("/shopfusion/admin/users");
       dispatch({ type: DELETE_USER_RESET });
     }
 
     dispatch(getAllUsers());
-  }, [dispatch, alert, error, deleteError, isDeleted, message]);
+  }, [dispatch, alert, error, deleteError, isDeleted, message, navigate]);
   const columns = [
     { field: "id", headerName: "User ID", minWidth: 180, flex: 0.8 },
 
@@ -82,7 +82,8 @@ const UserList = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
+            <Link
+              to={`/shopfusion/admin/user/${params.getValue(params.id, "id")}`}>
               <EditIcon />
             </Link>
             <Button

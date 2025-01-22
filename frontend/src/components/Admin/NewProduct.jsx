@@ -9,7 +9,7 @@ import AccountTreeIcon from "@material-ui/icons/AccountTree";
 import DescriptionIcon from "@material-ui/icons/Description";
 import StorageIcon from "@material-ui/icons/Storage";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import SlideBar from "./SlideBar";
 import { useNavigate } from "react-router-dom";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
@@ -44,7 +44,7 @@ const NewProduct = () => {
     }
     if (success) {
       alert.success("Product Created Successfully");
-      navigate("/admin/dashboard");
+      navigate("/shopfusion/admin/products");
       dispatch({
         type: NEW_PRODUCT_RESET,
       });
@@ -61,7 +61,6 @@ const NewProduct = () => {
     images.forEach((image) => {
       myForm.append("images", image);
     });
-    console.log(images);
     dispatch(createProduct(myForm));
   };
   const createProductImagesChange = (e) => {
@@ -91,7 +90,7 @@ const NewProduct = () => {
             onSubmit={createProductSubmitHandler}>
             <h1>Create Product</h1>
             <div>
-              <SpellcheckIcon></SpellcheckIcon>
+              <SpellcheckIcon />
               <input
                 type="text"
                 placeholder="Product Name"
@@ -101,7 +100,7 @@ const NewProduct = () => {
               />
             </div>
             <div>
-              <AttachMoneyIcon />
+              <CurrencyRupeeIcon />
               <input
                 type="number"
                 placeholder="Price"
@@ -116,7 +115,7 @@ const NewProduct = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
-                rows={"1"}></textarea>
+                rows="1"></textarea>
             </div>
             <div>
               <AccountTreeIcon />

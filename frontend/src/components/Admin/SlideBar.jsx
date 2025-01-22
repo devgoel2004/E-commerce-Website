@@ -1,6 +1,5 @@
 import React from "react";
 import "./SlideBar.css";
-import logo from "./../../images/ecommerce.png";
 import { Link } from "react-router-dom";
 import { TreeView, TreeItem } from "@material-ui/lab";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -30,7 +29,7 @@ const SlideBar = () => {
                 label="All"
                 icon={<PostAddIcon />}></TreeItem>
             </Link>
-            <Link to="/shopfusion/admin/product">
+            <Link to="/shopfusion/admin/create-product">
               <TreeItem nodeId="3" label="Create" icon={<AddIcon />}></TreeItem>
             </Link>
           </TreeItem>

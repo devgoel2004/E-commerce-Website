@@ -40,7 +40,7 @@ const Shipping = () => {
     if (isAuthenticated === false) {
       navigate("/shopfusion/login");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
   return (
     <>
       <MetaData title="Shipping Details" />
@@ -65,7 +65,7 @@ const Shipping = () => {
               />
             </div>
             <div>
-              <LocationCityIcon></LocationCityIcon>
+              <LocationCityIcon />
               <input
                 type="text"
                 name="city"

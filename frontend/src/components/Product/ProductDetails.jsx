@@ -9,7 +9,6 @@ import {
 import { useParams } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 import ReviewCard from "./ReviewCard";
-import image from "../../images/ecommerce.png";
 import { addItemToCart } from "../../actions/cartAction";
 import { useAlert } from "react-alert";
 import Loader from "../Loader/Loader";
@@ -30,7 +29,6 @@ const ProductDetails = () => {
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
-  const x = useSelector((state) => state.productDetails);
 
   const { user } = useSelector((state) => state.user);
   const { success, review: reviewError } = useSelector(

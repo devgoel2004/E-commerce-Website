@@ -32,8 +32,8 @@ ChartJS.register(
   Legend
 );
 const DashBoard = () => {
-  const navigate = useNavigate();
   const alert = useAlert();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
   const { products, error } = useSelector((state) => state.products);
@@ -70,8 +70,12 @@ const DashBoard = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
+    if (!isAuthenticated) {
+      alert.error("User not logged in");
+      navigate("/shopfusion/login");
+    }
     dispatch(getAdminProduct());
-  }, [alert, error, dispatch]);
+  }, [alert, error, dispatch, isAuthenticated, navigate]);
   return (
     <>
       {loading ? (

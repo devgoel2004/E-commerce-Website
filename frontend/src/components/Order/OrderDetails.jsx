@@ -10,6 +10,7 @@ import "./OrderDetails.css";
 const OrderDetails = () => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
   const dispatch = useDispatch();
+  console.log(order);
   const alert = useAlert();
   const { id } = useParams();
   useEffect(() => {
@@ -18,7 +19,7 @@ const OrderDetails = () => {
       dispatch(clearErrors());
     }
     dispatch(getOrderDetails(id));
-  }, [dispatch, error, id]);
+  }, [dispatch, error, id, alert]);
   return (
     <>
       {loading ? (
@@ -34,17 +35,23 @@ const OrderDetails = () => {
               <Typography>Shipping Info</Typography>
               <div className="orderDetailsContainer">
                 <div>
-                  <p>Name:</p>
+                  <b>
+                    <p>Name:</p>
+                  </b>
                   <span>{order.user && order.user.name}</span>
                 </div>
                 <div>
-                  <p>Phone:</p>
+                  <b>
+                    <p>Phone:</p>
+                  </b>
                   <span>
                     {order.shippingInfo && order.shippingInfo.phoneNo}
                   </span>
                 </div>
                 <div>
-                  <p>Address:</p>
+                  <b>
+                    <p>Address:</p>
+                  </b>
                   <span>
                     {order.shippingInfo &&
                       `${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.state}, ${order.shippingInfo.pinCode}, ${order.shippingInfo.country}`}

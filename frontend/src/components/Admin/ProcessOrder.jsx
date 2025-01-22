@@ -43,13 +43,13 @@ const ProcessOrder = () => {
     }
     if (isUpdated) {
       alert.success("Order Updated Successfully");
-      navigate("/admin/dashboard");
+      navigate("/shopfusion/admin/dashboard");
       dispatch({
         type: UPDATE_ORDER_RESET,
       });
     }
     dispatch(getOrderDetails(id));
-  }, [dispatch, alert, error, id, isUpdated, updateOrder]);
+  }, [dispatch, alert, error, id, isUpdated, updateError, navigate]);
   return (
     <>
       <MetaData title="Process Order" />
